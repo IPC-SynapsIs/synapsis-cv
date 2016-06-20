@@ -8,5 +8,5 @@ import java.util.UUID;
 /**
  * Created by mbasri on 19/06/2016.
  */
-public interface ICurriculumVitaeDao extends CrudRepository<CurriculumVitae, UUID> {
+public interface ICurriculumVitaeRepository extends CrudRepository<CurriculumVitae, UUID> {
 }
