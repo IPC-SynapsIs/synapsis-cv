@@ -1,4 +1,4 @@
-package org.synapsis.Repository;
+package org.synapsis.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.synapsis.entity.CurriculumVitae;
