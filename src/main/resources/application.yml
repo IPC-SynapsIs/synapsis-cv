@@ -2,8 +2,8 @@ spring:
     datasource:
         driverClassName: com.mysql.jdbc.Driver
         url: jdbc:mysql://db4free.net:3306/synapsis_cv?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-        username: synapsis
-        password: synapsis
+        username: ${USER_DB_SYNAPSIS}
+        password: ${PASSWORD_DB_SYNAPSIS}
         testWhileIdle: true
         validationQuery: SELECT 1
     jpa:
