@@ -1,19 +1,25 @@
 package org.synapsis.resource.impl;
 
 import io.swagger.annotations.*;
+import io.swagger.models.Response;
+import io.swagger.models.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.synapsis.repository.ICurriculumVitaeRepository;
 import org.synapsis.entity.CurriculumVitae;
 import org.synapsis.resource.ICurriculumVitaeResource;
 import org.synapsis.servcie.ICurriculumVitaeService;
 
 
+import java.io.*;
 import java.net.URI;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 /**
  * Created by mbasri on 19/06/2016.
@@ -25,6 +31,9 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
 
     @Autowired
     ICurriculumVitaeService curriculumVitaeService;
+
+    @Autowired
+    Environment env;
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
@@ -47,14 +56,28 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     }
 
     @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Ajout d'un 'Curriculum Vitae'")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Création de 'Curriculum Vitae' OK", response = URI.class)})
-    public ResponseEntity add(CurriculumVitae curriculumVitae) {
+    public ResponseEntity add(@RequestParam(value="file", required=true) MultipartFile file) {
+        CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitaeService.add(curriculumVitae);
+
+        String filepath = Paths.get(env.getProperty("org.synapsis.path.fileuploads"), curriculumVitae.getId().toString()).toString();
+        BufferedOutputStream stream =  null;
+        try {
+            stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+            stream.write(file.getBytes());
+            stream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ResponseEntity.created(URI.create("/cv/"+curriculumVitae.getId())).build();
     }
+
 
 
 

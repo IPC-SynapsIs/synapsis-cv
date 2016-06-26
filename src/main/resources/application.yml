@@ -26,3 +26,8 @@ eureka:
             defaultZone: http://localhost:8761/eureka/
 
 spring.application.name: ressource-synapsis-cv
+
+multipart.maxFileSize: 5Mb
+
+org.synapsis :
+    path.fileuploads : var/uploads

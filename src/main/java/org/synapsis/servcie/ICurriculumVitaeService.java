@@ -2,7 +2,6 @@ package org.synapsis.servcie;
 
 import org.synapsis.entity.CurriculumVitae;
 
-import java.util.UUID;
 
 /**
  * Created by mbasri on 19/06/2016.
