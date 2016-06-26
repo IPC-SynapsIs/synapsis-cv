@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.synapsis.Repository.ICurriculumVitaeRepository;
+import org.synapsis.repository.ICurriculumVitaeRepository;
 import org.synapsis.entity.CurriculumVitae;
 import org.synapsis.resource.ICurriculumVitaeResource;
 
