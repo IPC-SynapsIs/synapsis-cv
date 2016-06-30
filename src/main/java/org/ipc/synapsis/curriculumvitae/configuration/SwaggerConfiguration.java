@@ -1,4 +1,4 @@
-package org.synapsis.configuration;
+package org.ipc.synapsis.curriculumvitae.configuration;
 
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.async.DeferredResult;
-import org.synapsis.resource.impl.CurriculumVitaeResource;
+import org.ipc.synapsis.curriculumvitae.resource.impl.CurriculumVitaeResource;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;

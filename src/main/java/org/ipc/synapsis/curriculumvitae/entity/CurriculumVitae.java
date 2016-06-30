@@ -1,4 +1,4 @@
-package org.synapsis.entity;
+package org.ipc.synapsis.curriculumvitae.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

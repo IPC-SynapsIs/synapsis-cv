@@ -1,6 +1,6 @@
-package org.synapsis.servcie;
+package org.ipc.synapsis.curriculumvitae.servcie;
 
-import org.synapsis.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
 
 /**
