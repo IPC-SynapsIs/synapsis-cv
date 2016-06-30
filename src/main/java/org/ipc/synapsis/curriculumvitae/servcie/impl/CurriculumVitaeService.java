@@ -1,10 +1,10 @@
-package org.synapsis.servcie.impl;
+package org.ipc.synapsis.curriculumvitae.servcie.impl;
 
+import org.ipc.synapsis.curriculumvitae.repository.ICurriculumVitaeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.synapsis.entity.CurriculumVitae;
-import org.synapsis.repository.ICurriculumVitaeRepository;
-import org.synapsis.servcie.ICurriculumVitaeService;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
 
 import java.util.UUID;
 

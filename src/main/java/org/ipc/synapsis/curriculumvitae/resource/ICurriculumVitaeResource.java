@@ -1,8 +1,8 @@
-package org.synapsis.resource;
+package org.ipc.synapsis.curriculumvitae.resource;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
-import org.synapsis.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
 
 /**

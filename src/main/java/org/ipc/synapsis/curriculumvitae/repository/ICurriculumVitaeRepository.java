@@ -1,7 +1,7 @@
-package org.synapsis.repository;
+package org.ipc.synapsis.curriculumvitae.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import org.synapsis.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
 import java.util.UUID;
 

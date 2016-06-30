@@ -1,25 +1,20 @@
-package org.synapsis.resource.impl;
+package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
-import io.swagger.models.Response;
-import io.swagger.models.SecurityRequirement;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.resource.ICurriculumVitaeResource;
+import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.synapsis.repository.ICurriculumVitaeRepository;
-import org.synapsis.entity.CurriculumVitae;
-import org.synapsis.resource.ICurriculumVitaeResource;
-import org.synapsis.servcie.ICurriculumVitaeService;
 
 
 import java.io.*;
 import java.net.URI;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 /**
  * Created by mbasri on 19/06/2016.
