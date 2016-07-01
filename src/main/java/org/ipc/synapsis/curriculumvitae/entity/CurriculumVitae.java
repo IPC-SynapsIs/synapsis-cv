@@ -12,23 +12,23 @@ import java.util.UUID;
  * Created by mbasri on 19/06/2016.
  */
 @Entity
-@ApiModel(value = "'Curriculum Vitae'", description = "POJO pour represanté un 'Curriculum Vitae'")
+@ApiModel(value = "'Curriculum Vitae'", description = "The 'Curriculum Vitae' model")
 public class CurriculumVitae {
 
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    @ApiModelProperty(value = "L'id de la ressource 'Curriculum Vitae'")
+    @ApiModelProperty(value = "'Curriculum Vitae' id property", dataType = "java.util.UUID")
     private UUID id;
 
     @Column
-    @ApiModelProperty(value = "Le nom de la ressource 'Curriculum Vitae'")
+    @ApiModelProperty(value = "'Curriculum Vitae' name property", dataType = "java.lang.String")
     private String name;
 
     public CurriculumVitae() {
-        this.setId(UUID.randomUUID());
     }
 
-    public CurriculumVitae(String name) {
+    public CurriculumVitae(UUID id, String name) {
+        this.setId(id);
         this.setName(name);
     }
 

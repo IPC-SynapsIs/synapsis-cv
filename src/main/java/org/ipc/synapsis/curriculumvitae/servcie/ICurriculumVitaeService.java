@@ -8,7 +8,7 @@ import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
  */
 public interface ICurriculumVitaeService {
     CurriculumVitae get(String id);
-    Iterable<CurriculumVitae> gelAll();
+    Iterable<CurriculumVitae> getAll();
     void add(CurriculumVitae curriculumVitae);
     void update(CurriculumVitae curriculumVitae);
     void remove(String id);

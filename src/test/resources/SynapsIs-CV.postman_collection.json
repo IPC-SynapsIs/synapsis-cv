@@ -1,0 +1,162 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SynapsIs-CV",
+		"_postman_id": "89563cc6-dbfd-65a0-1139-8cf456a0393e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create CV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\ntests[\"Has header Location\"] = postman.getResponseHeader('Location') !== undefined && postman.getResponseHeader('Location') !== null;\n\nvar resourceLocation = postman.getResponseHeader('Location');\npostman.setEnvironmentVariable('createdCVResourceId', resourceLocation.split('/').pop());\n"
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{host}}:{{port}}/api/cv",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "stealthDeck.txt",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Create a new CV"
+			},
+			"response": []
+		},
+		{
+			"name": "List CV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests['Status code is 200'] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\nvar createdCVResourceId = postman.getEnvironmentVariable('createdCVResourceId');\ntests['Body contains id ' + createdCVResourceId] = false;\ndata.each(function(item) {\n    if (item.id === createdCVResourceId) {\n        tests['Body contains id ' + createdCVResourceId] = true;\n    }\n});"
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{host}}:{{port}}/api/cv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "List all created CV"
+			},
+			"response": []
+		},
+		{
+			"name": "Update CV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests['Status code is 200'] = responseCode.code === 200;\n"
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{host}}:{{port}}/api/cv",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"{{createdCVResourceId}}\",\n    \"name\":\"Test CV updated\"\n}"
+				},
+				"description": "Update the previously created CV"
+			},
+			"response": []
+		},
+		{
+			"name": "Get CV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\nvar createdCVResourceId = postman.getEnvironmentVariable('createdCVResourceId');\n\ntests['Retrieved CV id ' + createdCVResourceId] = data.id === createdCVResourceId;\ntests['Retrieved CV name is \"Test CV updated\"'] = data.name === 'Test CV updated';"
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{host}}:{{port}}/api/cv/{{createdCVResourceId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Get the previously created CV"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete CV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;"
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{host}}:{{port}}/api/cv/{{createdCVResourceId}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Delete the previously created CV"
+			},
+			"response": []
+		}
+	]
+}

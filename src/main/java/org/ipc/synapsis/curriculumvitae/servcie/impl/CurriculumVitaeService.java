@@ -24,21 +24,20 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     }
 
     @Override
-    public Iterable<CurriculumVitae> gelAll() {
+    public Iterable<CurriculumVitae> getAll() {
         Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeRepository.findAll();
         return curriculumVitaeList;
     }
 
     @Override
     public void add(CurriculumVitae curriculumVitae) {
+        curriculumVitae.setId(UUID.randomUUID());
         curriculumVitaeRepository.save(curriculumVitae);
-
     }
 
     @Override
     public void update(CurriculumVitae curriculumVitae) {
         curriculumVitaeRepository.save(curriculumVitae);
-
     }
 
     @Override

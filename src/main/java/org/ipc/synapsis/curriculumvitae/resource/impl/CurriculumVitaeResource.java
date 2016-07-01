@@ -20,8 +20,8 @@ import java.nio.file.Paths;
  * Created by mbasri on 19/06/2016.
  */
 @RestController
-@RequestMapping(value = "/cv")
-@Api( value = "Curriculum Vitae",description = "Point d'entrée pour gerer la ressource 'Curriculum Vitae'")
+@RequestMapping(value = "/api/cv")
+@Api( value = "Curriculum Vitae", description = "'Curriculum Vitae' resource base endpoint")
 public class CurriculumVitaeResource implements ICurriculumVitaeResource {
 
     @Autowired
@@ -30,31 +30,32 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @Autowired
     Environment env;
 
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Rechercher un 'Curriculum Vitae' par son id")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "le 'Curriculum Vitae' est trouvé, on le retourne en reponse", response = CurriculumVitae.class),
-            @ApiResponse(code = 404, message = "le 'Curriculum Vitae' est introuvable, on ne renvoie rien", response = void.class)})
-    public ResponseEntity get(@ApiParam(value = "L'id de la ressource 'Curriculum Vitae'", required = true) @PathVariable("id") String id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+    @ApiOperation(value = "Search a 'Curriculum Vitae' by its id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The 'Curriculum Vitae' was found and is in the response", response = CurriculumVitae.class),
+            @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
+    })
+    public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") String id) {
         CurriculumVitae curriculumVitae = curriculumVitaeService.get(id);
         return (curriculumVitae==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitae);
     }
 
-    @RequestMapping(method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Retourner tous les 'Curriculum Vitae' existants")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Au moins un 'Curriculum Vitae' est trouvé, on retourne la liste des 'Curriculum Vitae'", response = Iterable.class)})
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+    @ApiOperation(value = "Returns all existing 'Curriculum Vitae'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "All existing 'Curriculum Vitae' are returned in a potentially empty list", response = Iterable.class)
+    })
     public ResponseEntity getAll() {
-        Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeService.gelAll();
+        Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeService.getAll();
         return ResponseEntity.ok(curriculumVitaeList);
     }
 
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Ajout d'un 'Curriculum Vitae'")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Création de 'Curriculum Vitae' OK", response = URI.class)})
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    @ApiOperation(value = "Adds a new 'Curriculum Vitae'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
+    })
     public ResponseEntity add(@RequestParam(value="file", required=true) MultipartFile file) {
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitaeService.add(curriculumVitae);
@@ -70,42 +71,36 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ResponseEntity.created(URI.create("/cv/"+curriculumVitae.getId())).build();
+        return ResponseEntity.created(URI.create("/api/cv/"+curriculumVitae.getId())).build();
     }
 
-
-
-
-
-    @RequestMapping(method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Mettre a jour un 'Curriculum Vitae' existants")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Mise a jour de 'Curriculum Vitae' OK", response = void.class)})
-    public ResponseEntity update(@ApiParam(value = "'Curriculum Vitae'", required = true) CurriculumVitae curriculumVitae) {
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    @ApiOperation(value = "Updates an existing 'Curriculum Vitae'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully updated", response = void.class)
+    })
+    public ResponseEntity update(@ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody CurriculumVitae curriculumVitae) {
         curriculumVitaeService.update(curriculumVitae);
         return ResponseEntity.ok().build();
     }
 
-
-
-
-    @RequestMapping(method = RequestMethod.DELETE,
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Supprimer un 'Curriculum Vitae'")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Suppression de 'Curriculum Vitae' OK", response = void.class)})
-    public ResponseEntity remove(String id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Deletes an existing 'Curriculum Vitae'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully deleted", response = void.class)
+    })
+    public ResponseEntity remove(@PathVariable("id") String id) {
         curriculumVitaeService.remove(id);
         return ResponseEntity.ok().build();
     }
 
-
-    @ApiOperation(value = "Tester la reactivité du Micro-Service")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Micro-Service OK", response = String.class)})
-    @RequestMapping(value = {"/ping"},method = RequestMethod.GET)
-    public ResponseEntity ping(){
-        return ResponseEntity.ok("pong");
+    @RequestMapping(value = {"/health"},method = RequestMethod.GET)
+    @ApiOperation(value = "Checks the service's health and reactivity")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Service is up and running", response = String.class)
+    })
+    public ResponseEntity health(){
+        return ResponseEntity.ok().build();
 
     }
 }

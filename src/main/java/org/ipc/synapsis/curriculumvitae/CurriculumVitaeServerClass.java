@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableEurekaClient
 @EnableJpaRepositories(basePackages = {"org.ipc.synapsis.curriculumvitae.repository"})
 public class CurriculumVitaeServerClass {
+
     public static void main(final String[] args) {
         SpringApplication.run(CurriculumVitaeServerClass.class, args);
     }
-
 
 }

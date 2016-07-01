@@ -14,4 +14,5 @@ public interface ICurriculumVitaeResource {
     ResponseEntity get(String id);
     ResponseEntity getAll();
     ResponseEntity remove(String id);
+    ResponseEntity health();
 }
