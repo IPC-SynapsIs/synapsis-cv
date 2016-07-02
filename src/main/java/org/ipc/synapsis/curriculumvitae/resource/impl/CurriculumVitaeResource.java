@@ -1,6 +1,8 @@
 package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
+import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
+import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ICurriculumVitaeResource;
 import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 /**
  * Created by mbasri on 19/06/2016.
@@ -37,8 +40,8 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
     })
     public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") String id) {
-        CurriculumVitae curriculumVitae = curriculumVitaeService.get(id);
-        return (curriculumVitae==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitae);
+        CurriculumVitaeOut curriculumVitaeOut = curriculumVitaeService.get(id);
+        return (curriculumVitaeOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitaeOut);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
@@ -47,8 +50,8 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "All existing 'Curriculum Vitae' are returned in a potentially empty list", response = Iterable.class)
     })
     public ResponseEntity getAll() {
-        Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeService.getAll();
-        return ResponseEntity.ok(curriculumVitaeList);
+        Iterable<CurriculumVitaeOut> curriculumVitaeOutList = curriculumVitaeService.getAll();
+        return ResponseEntity.ok(curriculumVitaeOutList);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
@@ -56,18 +59,19 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
     })
-    public ResponseEntity add(CurriculumVitae curriculumVitae) {
-        curriculumVitaeService.add(curriculumVitae);
-        return ResponseEntity.created(URI.create("/api/cv/"+curriculumVitae.getId())).build();
+    public ResponseEntity add(@RequestBody CurriculumVitaeIn curriculumVitaeIn) {
+        UUID id = curriculumVitaeService.add(curriculumVitaeIn);
+        return ResponseEntity.created(URI.create("/api/cv/"+id)).build();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Updates an existing 'Curriculum Vitae'")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully updated", response = void.class)
     })
-    public ResponseEntity update(@ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody CurriculumVitae curriculumVitae) {
-        curriculumVitaeService.update(curriculumVitae);
+    public ResponseEntity update(@ApiParam(value = "Id of the 'Curriculum Vitae' to update", required = true) @PathVariable("id") String id,
+                                 @ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody CurriculumVitaeIn curriculumVitaeIn) {
+        curriculumVitaeService.update(id,curriculumVitaeIn);
         return ResponseEntity.ok().build();
     }
 
