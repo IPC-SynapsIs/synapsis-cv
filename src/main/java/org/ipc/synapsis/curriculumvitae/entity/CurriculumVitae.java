@@ -21,15 +21,15 @@ public class CurriculumVitae {
     private UUID id;
 
     @Column
-    @ApiModelProperty(value = "'Curriculum Vitae' name property", dataType = "java.lang.String")
-    private String name;
+    @ApiModelProperty(value = "'Curriculum Vitae' title property", dataType = "java.lang.String")
+    private String title;
 
     public CurriculumVitae() {
     }
 
-    public CurriculumVitae(UUID id, String name) {
+    public CurriculumVitae(UUID id, String title) {
         this.setId(id);
-        this.setName(name);
+        this.setTitle(title);
     }
 
     public UUID getId() {
@@ -40,11 +40,11 @@ public class CurriculumVitae {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

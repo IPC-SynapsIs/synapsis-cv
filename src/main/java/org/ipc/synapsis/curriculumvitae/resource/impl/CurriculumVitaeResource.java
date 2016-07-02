@@ -21,7 +21,7 @@ import java.nio.file.Paths;
  */
 @RestController
 @RequestMapping(value = "/api/cv")
-@Api( value = "Curriculum Vitae", description = "'Curriculum Vitae' resource base endpoint")
+@Api(value = "Curriculum Vitae", description = "'Curriculum Vitae' resource base endpoint")
 public class CurriculumVitaeResource implements ICurriculumVitaeResource {
 
     @Autowired
@@ -51,26 +51,13 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         return ResponseEntity.ok(curriculumVitaeList);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Adds a new 'Curriculum Vitae'")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
     })
-    public ResponseEntity add(@RequestParam(value="file", required=true) MultipartFile file) {
-        CurriculumVitae curriculumVitae = new CurriculumVitae();
+    public ResponseEntity add(CurriculumVitae curriculumVitae) {
         curriculumVitaeService.add(curriculumVitae);
-
-        String filepath = Paths.get(env.getProperty("org.synapsis.path.fileuploads"), curriculumVitae.getId().toString()).toString();
-        BufferedOutputStream stream =  null;
-        try {
-            stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-            stream.write(file.getBytes());
-            stream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return ResponseEntity.created(URI.create("/api/cv/"+curriculumVitae.getId())).build();
     }
 
