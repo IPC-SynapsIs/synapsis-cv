@@ -5,7 +5,7 @@ import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ICurriculumVitaeResource;
-import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
+import org.ipc.synapsis.curriculumvitae.service.ICurriculumVitaeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.io.*;
 import java.net.URI;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 /**

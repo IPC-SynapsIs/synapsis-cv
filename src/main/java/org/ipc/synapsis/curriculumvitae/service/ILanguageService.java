@@ -1,8 +1,6 @@
-package org.ipc.synapsis.curriculumvitae.servcie;
+package org.ipc.synapsis.curriculumvitae.service;
 
-import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.in.LanguageIn;
-import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.bean.out.LanguageOut;
 
 import java.util.UUID;

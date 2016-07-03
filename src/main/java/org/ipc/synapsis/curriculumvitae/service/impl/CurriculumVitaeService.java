@@ -1,4 +1,4 @@
-package org.ipc.synapsis.curriculumvitae.servcie.impl;
+package org.ipc.synapsis.curriculumvitae.service.impl;
 
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
@@ -8,7 +8,7 @@ import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
-import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
+import org.ipc.synapsis.curriculumvitae.service.ICurriculumVitaeService;
 
 import java.util.ArrayList;
 import java.util.UUID;

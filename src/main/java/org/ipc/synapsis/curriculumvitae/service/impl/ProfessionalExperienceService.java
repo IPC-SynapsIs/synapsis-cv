@@ -1,15 +1,10 @@
-package org.ipc.synapsis.curriculumvitae.servcie.impl;
+package org.ipc.synapsis.curriculumvitae.service.impl;
 
-import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.in.ProfessionalExperienceIn;
-import org.ipc.synapsis.curriculumvitae.bean.out.AcademicBackgroundOut;
 import org.ipc.synapsis.curriculumvitae.bean.out.ProfessionalExperienceOut;
-import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
 import org.ipc.synapsis.curriculumvitae.entity.ProfessionalExperience;
-import org.ipc.synapsis.curriculumvitae.repository.IAcademicBackgroundRepository;
 import org.ipc.synapsis.curriculumvitae.repository.IProfessionalExperienceRepository;
-import org.ipc.synapsis.curriculumvitae.servcie.IAcademicBackgroundService;
-import org.ipc.synapsis.curriculumvitae.servcie.IProfessionalExperienceService;
+import org.ipc.synapsis.curriculumvitae.service.IProfessionalExperienceService;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
 import org.springframework.beans.factory.annotation.Autowired;
