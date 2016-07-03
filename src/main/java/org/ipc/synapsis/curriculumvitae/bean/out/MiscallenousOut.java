@@ -1,29 +1,29 @@
-package org.ipc.synapsis.curriculumvitae.entity;
+package org.ipc.synapsis.curriculumvitae.bean.out;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 /**
  * Created by mbasri on 02/07/2016.
  */
-@Entity
 @ApiModel(value = "'Miscallenous'", description = "The 'Miscallenous' model")
-public class Miscallenous {
+public class MiscallenousOut {
 
-    @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @ApiModelProperty(value = "'Miscallenous' id property", dataType = "java.util.UUID")
     private UUID id;
 
-    @Column
+    @ApiModelProperty(value = "'Miscallenous' title property", dataType = "java.lang.String")
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
+    @ApiModelProperty(value = "Reference to 'Curriculum Vitae'", dataType = "org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae")
     private CurriculumVitae curriculumVitae;
 
-    public Miscallenous() {
+
+    public MiscallenousOut() {
     }
 
     public UUID getId() {

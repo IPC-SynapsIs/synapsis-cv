@@ -1,7 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo;
 
-import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
-import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
+import org.ipc.synapsis.curriculumvitae.bean.in.*;
+import org.ipc.synapsis.curriculumvitae.entity.*;
 
 /**
  * Created by mbasri on 03/07/2016.
@@ -12,5 +12,33 @@ public class BeanInToPOJO {
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitae.setTitle(curriculumVitaeIn.getTitle());
         return curriculumVitae;
+    }
+
+    public static AcademicBackground getAcademicBackground(AcademicBackgroundIn academicBackgroundIn){
+        AcademicBackground academicBackground = new AcademicBackground();
+        academicBackground.setTitle(academicBackgroundIn.getTitle());
+        academicBackground.setCurriculumVitae(academicBackgroundIn.getCurriculumVitae());
+        return academicBackground;
+    }
+
+    public static Language getLanguage(LanguageIn languageIn){
+        Language language = new Language();
+        language.setLanguage(languageIn.getLanguage());
+        language.setCurriculumVitae(languageIn.getCurriculumVitae());
+        return language;
+    }
+
+    public static Miscallenous getMiscallenous(MiscallenousIn miscallenousIn){
+        Miscallenous miscallenous = new Miscallenous();
+        miscallenous.setTitle(miscallenousIn.getTitle());
+        miscallenous.setCurriculumVitae(miscallenousIn.getCurriculumVitae());
+        return miscallenous;
+    }
+
+    public static ProfessionalExperience getProfessionalExperience(ProfessionalExperienceIn professionalExperienceIn){
+        ProfessionalExperience professionalExperience = new ProfessionalExperience();
+        professionalExperience.setTitle(professionalExperienceIn.getTitle());
+        professionalExperience.setCurriculumVitae(professionalExperienceIn.getCurriculumVitae());
+        return professionalExperience;
     }
 }

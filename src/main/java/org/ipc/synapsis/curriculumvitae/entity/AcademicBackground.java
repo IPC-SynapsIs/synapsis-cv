@@ -9,16 +9,44 @@ import java.util.UUID;
  * Created by mbasri on 02/07/2016.
  */
 @Entity
-@ApiModel(value = "'Academic Background'", description = "The 'Academic Background' model")
 public class AcademicBackground {
 
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    @ApiModelProperty(value = "'Academic Background' id property", dataType = "java.util.UUID")
     private UUID id;
+
+    @Column
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
-    @ApiModelProperty(value = "Reference to 'Curriculum Vitae'", dataType = "org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae")
     private CurriculumVitae curriculumVitae;
+
+    public AcademicBackground() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public CurriculumVitae getCurriculumVitae() {
+        return curriculumVitae;
+    }
+
+    public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
+        this.curriculumVitae = curriculumVitae;
+    }
+
 }

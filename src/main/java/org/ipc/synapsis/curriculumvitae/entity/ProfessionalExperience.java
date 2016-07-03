@@ -14,12 +14,39 @@ public class ProfessionalExperience {
 
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    @ApiModelProperty(value = "'Professional Experience' id property", dataType = "java.util.UUID")
     private UUID id;
+
+    @Column
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
-    @ApiModelProperty(value = "Reference to 'Curriculum Vitae'", dataType = "org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae")
     private CurriculumVitae curriculumVitae;
 
+    public ProfessionalExperience() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public CurriculumVitae getCurriculumVitae() {
+        return curriculumVitae;
+    }
+
+    public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
+        this.curriculumVitae = curriculumVitae;
+    }
 }
