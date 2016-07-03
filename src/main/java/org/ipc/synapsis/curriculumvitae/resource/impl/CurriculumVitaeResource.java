@@ -6,12 +6,13 @@ import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ICurriculumVitaeResource;
 import org.ipc.synapsis.curriculumvitae.servcie.ICurriculumVitaeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.*;
@@ -27,6 +28,8 @@ import java.util.UUID;
 @Api(value = "Curriculum Vitae", description = "'Curriculum Vitae' resource base endpoint")
 public class CurriculumVitaeResource implements ICurriculumVitaeResource {
 
+    public static Logger LOGGER = LoggerFactory.getLogger(CurriculumVitaeResource.class);
+
     @Autowired
     ICurriculumVitaeService curriculumVitaeService;
 
@@ -40,7 +43,9 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
     })
     public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") final String id) {
+        LOGGER.debug("Start call of the web service get 'Curriculum Vitae' by id, id={}",id);
         CurriculumVitaeOut curriculumVitaeOut = curriculumVitaeService.get(id);
+        LOGGER.debug("End call of  the web service get 'Curriculum Vitae' by id, id={}",id);
         return (curriculumVitaeOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitaeOut);
     }
 
@@ -50,17 +55,21 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "All existing 'Curriculum Vitae' are returned in a potentially empty list", response = Iterable.class)
     })
     public ResponseEntity getAll() {
+        LOGGER.debug("Start call of the web service get all 'Curriculum Vitae'");
         Iterable<CurriculumVitaeOut> curriculumVitaeOutList = curriculumVitaeService.getAll();
+        LOGGER.debug("End call of the web service get all 'Curriculum Vitae'");
         return ResponseEntity.ok(curriculumVitaeOutList);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-    @ApiOperation(value = "Adds a new 'Curriculum Vitae'")
+    @ApiOperation(value = "Add a new 'Curriculum Vitae'")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
     })
     public ResponseEntity add(@RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
+        LOGGER.debug("Start call of the web service add new 'Curriculum Vitae',{}",curriculumVitaeIn);
         UUID id = curriculumVitaeService.add(curriculumVitaeIn);
+        LOGGER.debug("End call of the web service add new 'Curriculum Vitae',{}",curriculumVitaeIn);
         return ResponseEntity.created(URI.create("/api/cv/"+id)).build();
     }
 
@@ -71,7 +80,9 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     })
     public ResponseEntity update(@ApiParam(value = "Id of the 'Curriculum Vitae' to update", required = true) @PathVariable("id") final String id,
                                  @ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
+        LOGGER.debug("Start call of the web service update 'Curriculum Vitae',{}",curriculumVitaeIn);
         curriculumVitaeService.update(id,curriculumVitaeIn);
+        LOGGER.debug("End call of the web service update 'Curriculum Vitae',{}",curriculumVitaeIn);
         return ResponseEntity.ok().build();
     }
 
@@ -81,7 +92,9 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully deleted", response = void.class)
     })
     public ResponseEntity remove(@PathVariable("id") final String id) {
+        LOGGER.debug("Start call of the web service delete 'Curriculum Vitae' by id,id={}",id);
         curriculumVitaeService.remove(id);
+        LOGGER.debug("End call of the web service delete 'Curriculum Vitae' by id,id={}",id);
         return ResponseEntity.ok().build();
     }
 
@@ -91,7 +104,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "Service is up and running", response = String.class)
     })
     public ResponseEntity health(){
+        LOGGER.debug("Call of the web service health");
         return ResponseEntity.ok().build();
-
     }
 }
