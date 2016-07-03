@@ -39,7 +39,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "The 'Curriculum Vitae' was found and is in the response", response = CurriculumVitae.class),
             @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") final String id) {
         CurriculumVitaeOut curriculumVitaeOut = curriculumVitaeService.get(id);
         return (curriculumVitaeOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitaeOut);
     }
@@ -59,7 +59,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
     })
-    public ResponseEntity add(@RequestBody CurriculumVitaeIn curriculumVitaeIn) {
+    public ResponseEntity add(@RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
         UUID id = curriculumVitaeService.add(curriculumVitaeIn);
         return ResponseEntity.created(URI.create("/api/cv/"+id)).build();
     }
@@ -69,8 +69,8 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully updated", response = void.class)
     })
-    public ResponseEntity update(@ApiParam(value = "Id of the 'Curriculum Vitae' to update", required = true) @PathVariable("id") String id,
-                                 @ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody CurriculumVitaeIn curriculumVitaeIn) {
+    public ResponseEntity update(@ApiParam(value = "Id of the 'Curriculum Vitae' to update", required = true) @PathVariable("id") final String id,
+                                 @ApiParam(value = "The 'Curriculum Vitae' to update", required = true) @RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
         curriculumVitaeService.update(id,curriculumVitaeIn);
         return ResponseEntity.ok().build();
     }
@@ -80,7 +80,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully deleted", response = void.class)
     })
-    public ResponseEntity remove(@PathVariable("id") String id) {
+    public ResponseEntity remove(@PathVariable("id") final String id) {
         curriculumVitaeService.remove(id);
         return ResponseEntity.ok().build();
     }

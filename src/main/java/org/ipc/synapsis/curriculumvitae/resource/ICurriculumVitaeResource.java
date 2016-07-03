@@ -10,10 +10,10 @@ import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
  * Created by mbasri on 19/06/2016.
  */
 public interface ICurriculumVitaeResource {
-    ResponseEntity add(CurriculumVitaeIn curriculumVitaeIn);
-    ResponseEntity update(String id,CurriculumVitaeIn curriculumVitaeIn);
-    ResponseEntity get(String id);
+    ResponseEntity add(final CurriculumVitaeIn curriculumVitaeIn);
+    ResponseEntity update(final String id,final CurriculumVitaeIn curriculumVitaeIn);
+    ResponseEntity get(final String id);
     ResponseEntity getAll();
-    ResponseEntity remove(String id);
+    ResponseEntity remove(final String id);
     ResponseEntity health();
 }

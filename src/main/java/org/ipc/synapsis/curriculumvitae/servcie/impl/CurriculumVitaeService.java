@@ -23,7 +23,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     ICurriculumVitaeRepository curriculumVitaeRepository;
 
     @Override
-    public CurriculumVitaeOut get(String id) {
+    public CurriculumVitaeOut get(final String id) {
         CurriculumVitaeOut curriculumVitaeOut = null;
         CurriculumVitae curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
         curriculumVitaeOut = POJOToBeanOut.getCurriculumVitaeOut(curriculumVitae);
@@ -42,7 +42,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     }
 
     @Override
-    public UUID add(CurriculumVitaeIn curriculumVitaeIn) {
+    public UUID add(final CurriculumVitaeIn curriculumVitaeIn) {
         UUID id= UUID.randomUUID();
         CurriculumVitae curriculumVitae = BeanInToPOJO.getCurriculumVitae(curriculumVitaeIn);
         curriculumVitae.setId(id);
@@ -52,14 +52,14 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     }
 
     @Override
-    public void update(String id, CurriculumVitaeIn curriculumVitaeIn) {
+    public void update(final String id,final CurriculumVitaeIn curriculumVitaeIn) {
         CurriculumVitae curriculumVitae = BeanInToPOJO.getCurriculumVitae(curriculumVitaeIn);
         curriculumVitae.setId(UUID.fromString(id));
         curriculumVitaeRepository.save(curriculumVitae);
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(final String id) {
         curriculumVitaeRepository.delete(UUID.fromString(id));
 
     }

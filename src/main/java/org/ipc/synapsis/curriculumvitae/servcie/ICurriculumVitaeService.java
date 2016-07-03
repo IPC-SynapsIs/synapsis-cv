@@ -11,9 +11,9 @@ import java.util.UUID;
  * Created by mbasri on 19/06/2016.
  */
 public interface ICurriculumVitaeService {
-    CurriculumVitaeOut get(String id);
+    CurriculumVitaeOut get(final String id);
     Iterable<CurriculumVitaeOut> getAll();
-    UUID add(CurriculumVitaeIn curriculumVitaeIn);
-    void update(String id, CurriculumVitaeIn curriculumVitaeIn);
-    void remove(String id);
+    UUID add(final CurriculumVitaeIn curriculumVitaeIn);
+    void update(final String id, final CurriculumVitaeIn curriculumVitaeIn);
+    void remove(final String id);
 }
