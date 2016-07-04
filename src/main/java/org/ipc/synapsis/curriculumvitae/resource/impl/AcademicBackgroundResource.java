@@ -9,7 +9,6 @@ import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +28,6 @@ public class AcademicBackgroundResource implements IAcademicBackgroundResource {
 
     @Autowired
     IAcademicBackgroundService academicBackgroundService;
-
-    @Autowired
-    Environment env;
-
 
     @Override
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
