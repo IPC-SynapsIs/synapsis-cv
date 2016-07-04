@@ -26,7 +26,7 @@ import java.util.UUID;
 @Api(value = "Curriculum Vitae", description = "'Curriculum Vitae' resource base endpoint")
 public class CurriculumVitaeResource implements ICurriculumVitaeResource {
 
-    public static Logger LOGGER = LoggerFactory.getLogger(CurriculumVitaeResource.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(CurriculumVitaeResource.class);
 
     @Autowired
     ICurriculumVitaeService curriculumVitaeService;
@@ -34,6 +34,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @Autowired
     Environment env;
 
+    @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Search a 'Curriculum Vitae' by its id")
     @ApiResponses(value = {
@@ -47,6 +48,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         return (curriculumVitaeOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitaeOut);
     }
 
+    @Override
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Returns all existing 'Curriculum Vitae'")
     @ApiResponses(value = {
@@ -59,18 +61,20 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         return ResponseEntity.ok(curriculumVitaeOutList);
     }
 
+    @Override
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Add a new 'Curriculum Vitae'")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "New 'Curriculum Vitae' successfully created", response = URI.class)
     })
-    public ResponseEntity add(@RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
+    public ResponseEntity add(@ApiParam(value = "The 'Curriculum Vitae' to add", required = true)@RequestBody final CurriculumVitaeIn curriculumVitaeIn) {
         LOGGER.debug("Start call of the web service add new 'Curriculum Vitae',{}",curriculumVitaeIn);
         UUID id = curriculumVitaeService.add(curriculumVitaeIn);
         LOGGER.debug("End call of the web service add new 'Curriculum Vitae',{}",curriculumVitaeIn);
         return ResponseEntity.created(URI.create("/api/cv/"+id)).build();
     }
 
+    @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Updates an existing 'Curriculum Vitae'")
     @ApiResponses(value = {
@@ -84,6 +88,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Deletes an existing 'Curriculum Vitae'")
     @ApiResponses(value = {
@@ -96,6 +101,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @RequestMapping(value = {"/health"},method = RequestMethod.GET)
     @ApiOperation(value = "Checks the service's health and reactivity")
     @ApiResponses(value = {
