@@ -3,7 +3,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.AcademicBackgroundOut;
 import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
-import org.ipc.synapsis.curriculumvitae.repository.IAcademicBackgroundRepository;
+import org.ipc.synapsis.curriculumvitae.proxy.IAcademicBackgroundProxy;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class AcademicBackgroundService implements IAcademicBackgroundService {
 
     @Autowired
-    IAcademicBackgroundRepository academicBackgroundRepository;
+    IAcademicBackgroundProxy academicBackgroundProxy;
 
     @Override
     public AcademicBackgroundOut get(final String id) {
         AcademicBackgroundOut academicBackgroundOut = null;
-        AcademicBackground academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
+        AcademicBackground academicBackground = academicBackgroundProxy.get(id);
         academicBackgroundOut = POJOToBeanOut.getAcademicBackgroundOut(academicBackground);
         return academicBackgroundOut;
     }
@@ -33,7 +33,7 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
     @Override
     public Iterable<AcademicBackgroundOut> getAll() {
         ArrayList<AcademicBackgroundOut> academicBackgroundOutList = new ArrayList<>();
-        Iterable<AcademicBackground> academicBackgroundList = academicBackgroundRepository.findAll();
+        Iterable<AcademicBackground> academicBackgroundList = academicBackgroundProxy.getAll();
         for (AcademicBackground academicBackground : academicBackgroundList){
             AcademicBackgroundOut academicBackgroundOut = POJOToBeanOut.getAcademicBackgroundOut(academicBackground);
             academicBackgroundOutList.add(academicBackgroundOut);
@@ -46,7 +46,7 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
         UUID id= UUID.randomUUID();
         AcademicBackground academicBackground = BeanInToPOJO.getAcademicBackground(academicBackgroundIn);
         academicBackground.setId(id);
-        academicBackgroundRepository.save(academicBackground);
+        academicBackgroundProxy.add(academicBackground);
         return id;
     }
 
@@ -54,12 +54,12 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
     public void update(final String id,final AcademicBackgroundIn academicBackgroundIn) {
         AcademicBackground academicBackground = BeanInToPOJO.getAcademicBackground(academicBackgroundIn);
         academicBackground.setId(UUID.fromString(id));
-        academicBackgroundRepository.save(academicBackground);
+        academicBackgroundProxy.update(academicBackground);
     }
 
     @Override
     public void remove(final String id) {
-        academicBackgroundRepository.delete(UUID.fromString(id));
+        academicBackgroundProxy.remove(id);
 
     }
 }

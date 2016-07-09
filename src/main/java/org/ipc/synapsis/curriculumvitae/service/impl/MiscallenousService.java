@@ -3,7 +3,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 import org.ipc.synapsis.curriculumvitae.bean.in.MiscallenousIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.MiscallenousOut;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
-import org.ipc.synapsis.curriculumvitae.repository.IMiscallenousRepository;
+import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
 import org.ipc.synapsis.curriculumvitae.service.IMiscallenousService;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class MiscallenousService implements IMiscallenousService {
 
     @Autowired
-    IMiscallenousRepository miscallenousRepository;
+    IMiscallenousProxy miscallenousProxy;
 
     @Override
     public MiscallenousOut get(final String id) {
         MiscallenousOut miscallenousOut = null;
-        Miscallenous miscallenous = miscallenousRepository.findOne(UUID.fromString(id));
+        Miscallenous miscallenous = miscallenousProxy.get(id);
         miscallenousOut = POJOToBeanOut.getMiscallenousOut(miscallenous);
         return miscallenousOut;
     }
@@ -33,7 +33,7 @@ public class MiscallenousService implements IMiscallenousService {
     @Override
     public Iterable<MiscallenousOut> getAll() {
         ArrayList<MiscallenousOut> miscallenousOutList = new ArrayList<>();
-        Iterable<Miscallenous> miscallenousList = miscallenousRepository.findAll();
+        Iterable<Miscallenous> miscallenousList = miscallenousProxy.getAll();
         for (Miscallenous miscallenous : miscallenousList){
             MiscallenousOut miscallenouOut = POJOToBeanOut.getMiscallenousOut(miscallenous);
             miscallenousOutList.add(miscallenouOut);
@@ -46,7 +46,7 @@ public class MiscallenousService implements IMiscallenousService {
         UUID id= UUID.randomUUID();
         Miscallenous miscallenous = BeanInToPOJO.getMiscallenous(miscallenousIn);
         miscallenous.setId(id);
-        miscallenousRepository.save(miscallenous);
+        miscallenousProxy.add(miscallenous);
         return id;
     }
 
@@ -54,12 +54,12 @@ public class MiscallenousService implements IMiscallenousService {
     public void update(final String id,final MiscallenousIn miscallenousIn) {
         Miscallenous miscallenous = BeanInToPOJO.getMiscallenous(miscallenousIn);
         miscallenous.setId(UUID.fromString(id));
-        miscallenousRepository.save(miscallenous);
+        miscallenousProxy.update(miscallenous);
     }
 
     @Override
     public void remove(final String id) {
-        miscallenousRepository.delete(UUID.fromString(id));
+        miscallenousProxy.remove(id);
 
     }
 }

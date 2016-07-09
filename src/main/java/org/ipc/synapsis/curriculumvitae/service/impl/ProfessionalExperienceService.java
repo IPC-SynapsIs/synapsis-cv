@@ -3,7 +3,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 import org.ipc.synapsis.curriculumvitae.bean.in.ProfessionalExperienceIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.ProfessionalExperienceOut;
 import org.ipc.synapsis.curriculumvitae.entity.ProfessionalExperience;
-import org.ipc.synapsis.curriculumvitae.repository.IProfessionalExperienceRepository;
+import org.ipc.synapsis.curriculumvitae.proxy.IProfessionalExperienceProxy;
 import org.ipc.synapsis.curriculumvitae.service.IProfessionalExperienceService;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class ProfessionalExperienceService implements IProfessionalExperienceService {
 
     @Autowired
-    IProfessionalExperienceRepository professionalExperienceRepository;
+    IProfessionalExperienceProxy professionalExperienceProxy;
 
     @Override
     public ProfessionalExperienceOut get(final String id) {
         ProfessionalExperienceOut professionalExperienceOut = null;
-        ProfessionalExperience professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
+        ProfessionalExperience professionalExperience = professionalExperienceProxy.get(id);
         professionalExperienceOut = POJOToBeanOut.getProfessionalExperienceOut(professionalExperience);
         return professionalExperienceOut;
     }
@@ -33,7 +33,7 @@ public class ProfessionalExperienceService implements IProfessionalExperienceSer
     @Override
     public Iterable<ProfessionalExperienceOut> getAll() {
         ArrayList<ProfessionalExperienceOut> professionalExperienceOutList = new ArrayList<>();
-        Iterable<ProfessionalExperience> professionalExperienceList = professionalExperienceRepository.findAll();
+        Iterable<ProfessionalExperience> professionalExperienceList = professionalExperienceProxy.getAll();
         for (ProfessionalExperience professionalExperience : professionalExperienceList){
             ProfessionalExperienceOut professionalExperienceOut = POJOToBeanOut.getProfessionalExperienceOut(professionalExperience);
             professionalExperienceOutList.add(professionalExperienceOut);
@@ -46,7 +46,7 @@ public class ProfessionalExperienceService implements IProfessionalExperienceSer
         UUID id= UUID.randomUUID();
         ProfessionalExperience professionalExperience = BeanInToPOJO.getProfessionalExperience(professionalExperienceIn);
         professionalExperience.setId(id);
-        professionalExperienceRepository.save(professionalExperience);
+        professionalExperienceProxy.add(professionalExperience);
         return id;
     }
 
@@ -54,12 +54,12 @@ public class ProfessionalExperienceService implements IProfessionalExperienceSer
     public void update(final String id,final ProfessionalExperienceIn professionalExperienceIn) {
         ProfessionalExperience professionalExperience = BeanInToPOJO.getProfessionalExperience(professionalExperienceIn);
         professionalExperience.setId(UUID.fromString(id));
-        professionalExperienceRepository.save(professionalExperience);
+        professionalExperienceProxy.update(professionalExperience);
     }
 
     @Override
     public void remove(final String id) {
-        professionalExperienceRepository.delete(UUID.fromString(id));
+        professionalExperienceProxy.remove(id);
 
     }
 }

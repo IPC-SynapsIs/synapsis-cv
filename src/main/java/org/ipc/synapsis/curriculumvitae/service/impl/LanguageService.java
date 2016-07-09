@@ -3,7 +3,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 import org.ipc.synapsis.curriculumvitae.bean.in.LanguageIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.LanguageOut;
 import org.ipc.synapsis.curriculumvitae.entity.Language;
-import org.ipc.synapsis.curriculumvitae.repository.ILanguageRepository;
+import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
 import org.ipc.synapsis.curriculumvitae.service.ILanguageService;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class LanguageService implements ILanguageService {
 
     @Autowired
-    ILanguageRepository languageRepository;
+    ILanguageProxy languageProxy;
 
     @Override
     public LanguageOut get(final String id) {
         LanguageOut languageOut = null;
-        Language language = languageRepository.findOne(UUID.fromString(id));
+        Language language = languageProxy.get(id);
         languageOut = POJOToBeanOut.getLanguageOut(language);
         return languageOut;
     }
@@ -33,7 +33,7 @@ public class LanguageService implements ILanguageService {
     @Override
     public Iterable<LanguageOut> getAll() {
         ArrayList<LanguageOut> languageOutList = new ArrayList<>();
-        Iterable<Language> languageList = languageRepository.findAll();
+        Iterable<Language> languageList = languageProxy.getAll();
         for (Language language : languageList){
             LanguageOut languageOut = POJOToBeanOut.getLanguageOut(language);
             languageOutList.add(languageOut);
@@ -46,7 +46,7 @@ public class LanguageService implements ILanguageService {
         UUID id= UUID.randomUUID();
         Language language = BeanInToPOJO.getLanguage(languageIn);
         language.setId(id);
-        languageRepository.save(language);
+        languageProxy.add(language);
         return id;
     }
 
@@ -54,12 +54,12 @@ public class LanguageService implements ILanguageService {
     public void update(final String id,final LanguageIn languageIn) {
         Language language = BeanInToPOJO.getLanguage(languageIn);
         language.setId(UUID.fromString(id));
-        languageRepository.save(language);
+        languageProxy.update(language);
     }
 
     @Override
     public void remove(final String id) {
-        languageRepository.delete(UUID.fromString(id));
+        languageProxy.remove(id);
 
     }
 }

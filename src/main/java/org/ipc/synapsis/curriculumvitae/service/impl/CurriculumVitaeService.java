@@ -2,7 +2,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
-import org.ipc.synapsis.curriculumvitae.repository.ICurriculumVitaeRepository;
+import org.ipc.synapsis.curriculumvitae.proxy.ICurriculumVitaeProxy;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ import java.util.UUID;
 public class CurriculumVitaeService implements ICurriculumVitaeService {
 
     @Autowired
-    ICurriculumVitaeRepository curriculumVitaeRepository;
+    ICurriculumVitaeProxy curriculumVitaeProxy;
 
     @Override
     public CurriculumVitaeOut get(final String id) {
         CurriculumVitaeOut curriculumVitaeOut = null;
-        CurriculumVitae curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
+        CurriculumVitae curriculumVitae = curriculumVitaeProxy.get(id);
         curriculumVitaeOut = POJOToBeanOut.getCurriculumVitaeOut(curriculumVitae);
         return curriculumVitaeOut;
     }
@@ -33,7 +33,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     @Override
     public Iterable<CurriculumVitaeOut> getAll() {
         ArrayList<CurriculumVitae> curriculumVitaesOutList = new ArrayList<>();
-        Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeRepository.findAll();
+        Iterable<CurriculumVitae> curriculumVitaeList = curriculumVitaeProxy.getAll();
         for (CurriculumVitae curriculumVitae : curriculumVitaeList){
             CurriculumVitaeOut curriculumVitaeOut = POJOToBeanOut.getCurriculumVitaeOut(curriculumVitae);
             curriculumVitaesOutList.add(curriculumVitae);
@@ -46,8 +46,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
         UUID id= UUID.randomUUID();
         CurriculumVitae curriculumVitae = BeanInToPOJO.getCurriculumVitae(curriculumVitaeIn);
         curriculumVitae.setId(id);
-
-        curriculumVitaeRepository.save(curriculumVitae);
+        curriculumVitaeProxy.add(curriculumVitae);
         return id;
     }
 
@@ -55,12 +54,12 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     public void update(final String id,final CurriculumVitaeIn curriculumVitaeIn) {
         CurriculumVitae curriculumVitae = BeanInToPOJO.getCurriculumVitae(curriculumVitaeIn);
         curriculumVitae.setId(UUID.fromString(id));
-        curriculumVitaeRepository.save(curriculumVitae);
+        curriculumVitaeProxy.update(curriculumVitae);
     }
 
     @Override
     public void remove(final String id) {
-        curriculumVitaeRepository.delete(UUID.fromString(id));
+        curriculumVitaeProxy.remove(id);
 
     }
 }
