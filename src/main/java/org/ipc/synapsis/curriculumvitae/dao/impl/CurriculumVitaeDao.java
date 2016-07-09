@@ -1,42 +1,45 @@
-package org.ipc.synapsis.curriculumvitae.proxy.impl;
+package org.ipc.synapsis.curriculumvitae.dao.impl;
 
 import org.ipc.synapsis.curriculumvitae.dao.ICurriculumVitaeDao;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.proxy.ICurriculumVitaeProxy;
+import org.ipc.synapsis.curriculumvitae.repository.ICurriculumVitaeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 /**
  * Created by mbasri on 09/07/2016.
  */
 @Component
-public class CurriculumVitaeProxy implements ICurriculumVitaeProxy {
+public class CurriculumVitaeDao implements ICurriculumVitaeDao {
 
     @Autowired
-    ICurriculumVitaeDao curriculumVitaeDao;
+    ICurriculumVitaeRepository curriculumVitaeRepository;
 
     @Override
     public CurriculumVitae get(String id) {
-        return curriculumVitaeDao.get(id);
+        return curriculumVitaeRepository.findOne(UUID.fromString(id));
     }
 
     @Override
     public Iterable<CurriculumVitae> getAll() {
-        return curriculumVitaeDao.getAll();
+        return curriculumVitaeRepository.findAll();
     }
 
     @Override
     public CurriculumVitae add(CurriculumVitae curriculumVitae) {
-        return curriculumVitaeDao.add(curriculumVitae);
+        return curriculumVitaeRepository.save(curriculumVitae);
     }
 
     @Override
     public CurriculumVitae update(CurriculumVitae curriculumVitae) {
-        return curriculumVitaeDao.update(curriculumVitae);
+        return curriculumVitaeRepository.save(curriculumVitae);
     }
 
     @Override
     public void remove(String id) {
-        curriculumVitaeDao.remove(id);
+        curriculumVitaeRepository.delete(UUID.fromString(id));
     }
 }

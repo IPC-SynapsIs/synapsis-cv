@@ -1,43 +1,46 @@
-package org.ipc.synapsis.curriculumvitae.proxy.impl;
+package org.ipc.synapsis.curriculumvitae.dao.impl;
 
 
 import org.ipc.synapsis.curriculumvitae.dao.IMiscallenousDao;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
+import org.ipc.synapsis.curriculumvitae.repository.IMiscallenousRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 /**
  * Created by mbasri on 19/06/2016.
  */
 @Component
-public class MiscallenousProxy implements IMiscallenousProxy {
+public class MiscallenousDao implements IMiscallenousDao {
 
     @Autowired
-    IMiscallenousDao miscallenousDao;
+    IMiscallenousRepository miscallenousRepository;
 
     @Override
     public Miscallenous get(final String id) {
-        return miscallenousDao.get(id);
+        return miscallenousRepository.findOne(UUID.fromString(id));
     }
 
     @Override
     public Iterable<Miscallenous> getAll() {
-        return miscallenousDao.getAll();
+        return miscallenousRepository.findAll();
     }
 
     @Override
     public Miscallenous add(final Miscallenous miscallenous) {
-        return miscallenousDao.add(miscallenous);
+        return miscallenousRepository.save(miscallenous);
     }
 
     @Override
     public Miscallenous update(final Miscallenous miscallenous) {
-        return miscallenousDao.update(miscallenous);
+        return miscallenousRepository.save(miscallenous);
     }
 
     @Override
     public void remove(final String id) {
-        miscallenousDao.remove(id);
+        miscallenousRepository.delete(UUID.fromString(id));
     }
 }
