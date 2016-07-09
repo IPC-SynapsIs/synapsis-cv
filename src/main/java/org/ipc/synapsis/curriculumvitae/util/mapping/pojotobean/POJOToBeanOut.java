@@ -1,6 +1,5 @@
 package org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean;
 
-import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.*;
 import org.ipc.synapsis.curriculumvitae.entity.*;
 
@@ -35,7 +34,7 @@ public class POJOToBeanOut {
     public static MiscallenousOut getMiscallenousOut(Miscallenous miscallenous){
         MiscallenousOut miscallenousOut = new MiscallenousOut();
         miscallenousOut.setId(miscallenous.getId());
-        miscallenousOut.setTitle(miscallenous.getTitle());
+        miscallenousOut.setText(miscallenous.getText());
         miscallenousOut.setCurriculumVitae(miscallenous.getCurriculumVitae());
         return miscallenousOut;
     }

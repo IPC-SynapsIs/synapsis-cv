@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 /**
@@ -16,8 +15,8 @@ public class MiscallenousOut {
     @ApiModelProperty(value = "'Miscallenous' id property", dataType = "java.util.UUID")
     private UUID id;
 
-    @ApiModelProperty(value = "'Miscallenous' title property", dataType = "java.lang.String")
-    private String title;
+    @ApiModelProperty(value = "'Miscallenous' text property", dataType = "java.lang.String")
+    private String text;
 
     @ApiModelProperty(value = "Reference to 'Curriculum Vitae'", dataType = "org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae")
     private CurriculumVitae curriculumVitae;
@@ -34,12 +33,12 @@ public class MiscallenousOut {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getText() {
+        return text;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public CurriculumVitae getCurriculumVitae() {

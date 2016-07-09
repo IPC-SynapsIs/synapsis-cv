@@ -1,33 +1,3 @@
 spring:
-    datasource:
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://db4free.net:3306/synapsis_cv?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-        username: ${USER_DB_SYNAPSIS}
-        password: ${PASSWORD_DB_SYNAPSIS}
-        testWhileIdle: true
-        validationQuery: SELECT 1
-    jpa:
-        database: MYSQL
-        show-sql: true
-        hibernate:
-            ddl-auto: update
-            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL5Dialect
-
-
-eureka:
-    instance:
-        leaseRenewalIntervalInSeconds: 10
-    client:
-        registryFetchIntervalSeconds: 5
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
-
-spring.application.name: ressource-synapsis-cv
-
-multipart.maxFileSize: 5Mb
-
-org.synapsis :
-    path.fileuploads : var/uploads
+  application:
+    name: synapsis-cv

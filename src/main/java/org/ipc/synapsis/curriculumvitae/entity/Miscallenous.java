@@ -1,7 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.entity;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -17,7 +17,7 @@ public class Miscallenous {
     private UUID id;
 
     @Column
-    private String title;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
@@ -34,12 +34,12 @@ public class Miscallenous {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getText() {
+        return text;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public CurriculumVitae getCurriculumVitae() {

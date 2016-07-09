@@ -20,7 +20,7 @@ import java.util.UUID;
  * Created by mbasri on 03/07/2016.
  */
 @RestController
-@RequestMapping(value = "/api/academic")
+@RequestMapping(value = "/api/language")
 @Api(value = "Language", description = "'Language' resource base endpoint")
 public class LanguageResource implements ILanguageResource {
 

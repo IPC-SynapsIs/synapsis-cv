@@ -30,7 +30,7 @@ public class BeanInToPOJO {
 
     public static Miscallenous getMiscallenous(MiscallenousIn miscallenousIn){
         Miscallenous miscallenous = new Miscallenous();
-        miscallenous.setTitle(miscallenousIn.getTitle());
+        miscallenous.setText(miscallenousIn.getText());
         miscallenous.setCurriculumVitae(miscallenousIn.getCurriculumVitae());
         return miscallenous;
     }

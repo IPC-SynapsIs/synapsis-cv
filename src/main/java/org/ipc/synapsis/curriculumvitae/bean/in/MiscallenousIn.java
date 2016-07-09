@@ -4,17 +4,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
-import javax.persistence.*;
-import java.util.UUID;
-
 /**
  * Created by mbasri on 02/07/2016.
  */
 @ApiModel(value = "'Miscallenous' IN", description = "The 'Miscallenous' IN model")
 public class MiscallenousIn {
 
-    @ApiModelProperty(value = "'Miscallenous' IN title property", dataType = "java.lang.String")
-    private String title;
+    @ApiModelProperty(value = "'Miscallenous' IN text property", dataType = "java.lang.String")
+    private String text;
 
     @ApiModelProperty(value = "Reference to 'Curriculum Vitae'", dataType = "org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae")
     private CurriculumVitae curriculumVitae;
@@ -30,18 +27,18 @@ public class MiscallenousIn {
         this.curriculumVitae = curriculumVitae;
     }
 
-    public String getTitle() {
-        return title;
+    public String getText() {
+        return text;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
         return "MiscallenousIn{" +
-                "title='" + title + '\'' +
+                "text='" + text + '\'' +
                 ", curriculumVitae=" + curriculumVitae +
                 '}';
     }
