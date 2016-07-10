@@ -5,6 +5,8 @@ import org.ipc.synapsis.curriculumvitae.dao.IMiscallenousDao;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
 import org.ipc.synapsis.curriculumvitae.repository.IMiscallenousRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,31 +18,47 @@ import java.util.UUID;
 @Component
 public class MiscallenousDao implements IMiscallenousDao {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(MiscallenousDao.class);
+
     @Autowired
     IMiscallenousRepository miscallenousRepository;
 
     @Override
     public Miscallenous get(final String id) {
-        return miscallenousRepository.findOne(UUID.fromString(id));
+        LOGGER.debug("Start call Dao layer get a 'Miscallenous',id:{}",id);
+        Miscallenous miscallenous =  miscallenousRepository.findOne(UUID.fromString(id));
+        LOGGER.debug("End call Dao layer get a 'Miscallenous',id:{}",id);
+        return miscallenous;
     }
 
     @Override
     public Iterable<Miscallenous> getAll() {
-        return miscallenousRepository.findAll();
+        LOGGER.debug("Start call Dao layer get all 'Miscallenous'");
+        Iterable<Miscallenous>  miscallenouseList = miscallenousRepository.findAll();
+        LOGGER.debug("End call Dao layer get all 'Miscallenous'");
+        return  miscallenouseList;
     }
 
     @Override
     public Miscallenous add(final Miscallenous miscallenous) {
-        return miscallenousRepository.save(miscallenous);
+        LOGGER.debug("Start call Dao layer add new 'Miscallenous',{}",miscallenous);
+        Miscallenous miscallenous1 = miscallenousRepository.save(miscallenous);
+        LOGGER.debug("End call Dao layer add new 'Miscallenous',{}",miscallenous1);
+        return miscallenous1;
     }
 
     @Override
     public Miscallenous update(final Miscallenous miscallenous) {
-        return miscallenousRepository.save(miscallenous);
+        LOGGER.debug("End call Dao layer update 'Miscallenous',{}",miscallenous);
+        Miscallenous miscallenous1 = miscallenousRepository.save(miscallenous);
+        LOGGER.debug("End call Dao layer update 'Miscallenous',{}",miscallenous1);
+        return miscallenous1;
     }
 
     @Override
     public void remove(final String id) {
+        LOGGER.debug("Start call Dao layer remove 'Miscallenous',id:{}",id);
         miscallenousRepository.delete(UUID.fromString(id));
+        LOGGER.debug("End call Dao layer remove 'Miscallenous',id:{}",id);
     }
 }

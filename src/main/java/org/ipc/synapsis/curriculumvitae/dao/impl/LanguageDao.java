@@ -4,6 +4,8 @@ import org.ipc.synapsis.curriculumvitae.dao.ILanguageDao;
 import org.ipc.synapsis.curriculumvitae.entity.Language;
 import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
 import org.ipc.synapsis.curriculumvitae.repository.ILanguageRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,31 +17,47 @@ import java.util.UUID;
 @Component
 public class LanguageDao implements ILanguageDao {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(LanguageDao.class);
+
     @Autowired
     ILanguageRepository languageRepository;
 
     @Override
     public Language get(final String id) {
-        return languageRepository.findOne(UUID.fromString(id));
+        LOGGER.debug("Start call Dao layer get a 'Language',id:{}",id);
+        Language language = languageRepository.findOne(UUID.fromString(id));
+        LOGGER.debug("End call Dao layer get a 'Language',id:{}",id);
+        return language;
     }
 
     @Override
     public Iterable<Language> getAll() {
-        return languageRepository.findAll();
+        LOGGER.debug("Start call Dao layer get all 'Language'");
+        Iterable<Language> languageList = languageRepository.findAll();
+        LOGGER.debug("End call Dao layer get all 'Language'");
+        return languageList;
     }
 
     @Override
     public Language add(final Language language) {
-        return languageRepository.save(language);
+        LOGGER.debug("Start call Dao layer add new 'Language',{}",language);
+        Language language1 = languageRepository.save(language);
+        LOGGER.debug("End call Dao layer add new 'Language',{}",language1);
+        return language1;
     }
 
     @Override
     public Language update(final Language language) {
-        return languageRepository.save(language);
+        LOGGER.debug("End call Dao layer update 'Language',{}",language);
+        Language language1 = languageRepository.save(language);
+        LOGGER.debug("End call Dao layer update 'Language',{}",language1);
+        return language1;
     }
 
     @Override
     public void remove(final String id) {
+        LOGGER.debug("Start call Dao layer remove 'Language',id:{}",id);
         languageRepository.delete(UUID.fromString(id));
+        LOGGER.debug("End call Dao layer remove 'Language',id:{}",id);
     }
 }
