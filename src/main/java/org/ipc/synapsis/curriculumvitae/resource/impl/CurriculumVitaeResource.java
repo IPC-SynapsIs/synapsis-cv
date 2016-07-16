@@ -7,7 +7,6 @@ import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ICurriculumVitaeResource;
 import org.ipc.synapsis.curriculumvitae.service.ICurriculumVitaeService;
 import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
-import org.ipc.synapsis.curriculumvitae.util.exception.HttpException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
@@ -68,7 +67,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
             @ApiResponse(code = 200, message = "The 'Curriculum Vitae' was found and is in the response", response = CurriculumVitae.class),
             @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") final String id) throws HttpException, ResourceNotFoundException {
+    public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call of the web service get 'Curriculum Vitae' by id, id={}",id);
         CurriculumVitaeOut curriculumVitaeOut = null;
         try {
