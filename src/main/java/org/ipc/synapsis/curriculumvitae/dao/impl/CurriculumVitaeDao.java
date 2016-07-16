@@ -4,6 +4,7 @@ import org.ipc.synapsis.curriculumvitae.dao.ICurriculumVitaeDao;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.proxy.ICurriculumVitaeProxy;
 import org.ipc.synapsis.curriculumvitae.repository.ICurriculumVitaeRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,19 @@ public class CurriculumVitaeDao implements ICurriculumVitaeDao {
     ICurriculumVitaeRepository curriculumVitaeRepository;
 
     @Override
-    public CurriculumVitae get(final String id) {
+    public CurriculumVitae get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Dao layer get a 'Curriculum Vitae',id:{}",id);
-        CurriculumVitae curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
+        CurriculumVitae curriculumVitae = null;
+        try {
+            curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
+        }catch(NumberFormatException e){
+            LOGGER.warn("Resource 'Curriculum Vitae' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Curriculum Vitae",e);
+        }
+        if (curriculumVitae == null){
+            LOGGER.warn("Resource 'Curriculum Vitae' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Curriculum Vitae");
+        }
         LOGGER.debug("End call Dao layer get a 'Curriculum Vitae',id:{}",id);
         return curriculumVitae;
     }

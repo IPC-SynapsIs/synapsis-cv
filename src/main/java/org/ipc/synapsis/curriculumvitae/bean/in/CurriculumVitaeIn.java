@@ -6,13 +6,17 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
  * Created by mbasri on 02/07/2016.
  */
+@ApiModel(value = "'Curriculum Vitae'", description = "The 'Curriculum Vitae' IN model")
 public class CurriculumVitaeIn {
 
+    @NotNull
+    @ApiModelProperty(value = "'Curriculum Vitae' IN title property", dataType = "java.lang.String")
     private String title;
 
     public CurriculumVitaeIn() {

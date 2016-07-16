@@ -3,13 +3,14 @@ package org.ipc.synapsis.curriculumvitae.bean.in;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
-
+import javax.validation.constraints.NotNull;
 /**
  * Created by mbasri on 02/07/2016.
  */
 @ApiModel(value = "'Miscallenous' IN", description = "The 'Miscallenous' IN model")
 public class MiscallenousIn {
 
+    @NotNull
     @ApiModelProperty(value = "'Miscallenous' IN text property", dataType = "java.lang.String")
     private String text;
 

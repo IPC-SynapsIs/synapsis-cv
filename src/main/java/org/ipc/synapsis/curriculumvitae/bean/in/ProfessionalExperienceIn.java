@@ -3,9 +3,7 @@ package org.ipc.synapsis.curriculumvitae.bean.in;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
-
-import javax.persistence.*;
-import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by mbasri on 02/07/2016.
@@ -13,6 +11,7 @@ import java.util.UUID;
 @ApiModel(value = "'Professional Experience' IN", description = "The 'Professional Experience' IN model")
 public class ProfessionalExperienceIn {
 
+    @NotNull
     @ApiModelProperty(value = "'Professional Experience' IN title property", dataType = "java.lang.String")
     private String title;
 

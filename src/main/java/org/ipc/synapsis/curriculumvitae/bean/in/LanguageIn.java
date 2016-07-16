@@ -3,9 +3,7 @@ package org.ipc.synapsis.curriculumvitae.bean.in;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
-
-import javax.persistence.*;
-import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by mbasri on 02/07/2016.
@@ -13,6 +11,7 @@ import java.util.UUID;
 @ApiModel(value = "'Language' IN", description = "The 'Language' IN model")
 public class LanguageIn {
 
+    @NotNull
     @ApiModelProperty(value = "'Language' IN language property", dataType = "java.lang.String")
     private String Language;
 

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -13,6 +14,7 @@ import java.util.UUID;
 @ApiModel(value = "'Academic Background' IN", description = "The 'Academic Background' IN model")
 public class AcademicBackgroundIn {
 
+    @NotNull
     @ApiModelProperty(value = "'Academic Background' IN title property", dataType = "java.lang.String")
     private String title;
 
