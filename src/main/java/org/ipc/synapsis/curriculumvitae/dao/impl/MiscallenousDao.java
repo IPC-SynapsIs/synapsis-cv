@@ -5,6 +5,7 @@ import org.ipc.synapsis.curriculumvitae.dao.IMiscallenousDao;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
 import org.ipc.synapsis.curriculumvitae.repository.IMiscallenousRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,19 @@ public class MiscallenousDao implements IMiscallenousDao {
     IMiscallenousRepository miscallenousRepository;
 
     @Override
-    public Miscallenous get(final String id) {
+    public Miscallenous get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Dao layer get a 'Miscallenous',id:{}",id);
-        Miscallenous miscallenous =  miscallenousRepository.findOne(UUID.fromString(id));
+        Miscallenous miscallenous = null;
+        try {
+            miscallenous = miscallenousRepository.findOne(UUID.fromString(id));
+        }catch(NumberFormatException e){
+            LOGGER.warn("Resource 'Miscallenous' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Miscallenous",e);
+        }
+        if (miscallenous == null){
+            LOGGER.warn("Resource 'Miscallenous' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Miscallenous");
+        }
         LOGGER.debug("End call Dao layer get a 'Miscallenous',id:{}",id);
         return miscallenous;
     }

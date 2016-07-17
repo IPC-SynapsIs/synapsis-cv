@@ -1,11 +1,15 @@
 package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
+import org.ipc.synapsis.curriculumvitae.bean.exception.ResourceNotFound;
 import org.ipc.synapsis.curriculumvitae.bean.in.LanguageIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.LanguageOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ILanguageResource;
 import org.ipc.synapsis.curriculumvitae.service.ILanguageService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +64,21 @@ public class LanguageResource implements ILanguageResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Search a 'Academic Background' by its id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The 'Language' was found and is in the response", response = CurriculumVitae.class),
-            @ApiResponse(code = 404, message = "The 'Language' cannot be found", response = void.class)
+            @ApiResponse(code = 200, message = "The 'Language' was found and is in the response", response = LanguageOut.class),
+            @ApiResponse(code = 404, message = "The 'Language' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Language' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity get(@ApiParam(value = "The given 'Language' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
         LOGGER.debug("Start call of the web service get 'Language' by id, id={}",id);
-        LanguageOut languageOut = languageService.get(id);
+        LanguageOut languageOut = null;
+        try {
+            languageOut = languageService.get(id);
+        } catch (ResourceNotFoundException e) {
+            LOGGER.warn("Resource 'Language' OUT not found, id:{}",id);
+            throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
+                    ResourceExceptionConstant.LANGUAGE_NOT_FOUND_CODE, ResourceExceptionConstant.LANGUAGE_NOT_FOUND_VALUE);
+        }
         LOGGER.debug("End call of  the web service get 'Language' by id, id={}",id);
-        return (languageOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(languageOut);
+        return ResponseEntity.ok(languageOut);
     }
 
     @Override

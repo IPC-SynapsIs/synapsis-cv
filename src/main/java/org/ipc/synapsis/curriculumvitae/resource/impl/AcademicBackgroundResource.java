@@ -1,11 +1,16 @@
 package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
+import org.ipc.synapsis.curriculumvitae.bean.exception.ResourceNotFound;
 import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.AcademicBackgroundOut;
+import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.IAcademicBackgroundResource;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +65,21 @@ public class AcademicBackgroundResource implements IAcademicBackgroundResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Search a 'Academic Background' by its id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The 'Academic Background' was found and is in the response", response = CurriculumVitae.class),
-            @ApiResponse(code = 404, message = "The 'Academic Background' cannot be found", response = void.class)
+            @ApiResponse(code = 200, message = "The 'Academic Background' was found and is in the response", response = AcademicBackgroundOut.class),
+            @ApiResponse(code = 404, message = "The 'Academic Background' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity get(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
         LOGGER.debug("Start call of the web service get 'Academic Background' by id, id={}",id);
-        AcademicBackgroundOut academicBackgroundOut = academicBackgroundService.get(id);
+        AcademicBackgroundOut academicBackgroundOut = null;
+        try {
+            academicBackgroundOut = academicBackgroundService.get(id);
+        } catch (ResourceNotFoundException e) {
+            LOGGER.warn("Resource 'Academic Background' OUT not found, id:{}",id);
+            throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
+                    ResourceExceptionConstant.ACADEMIC_BACKGROUND_NOT_FOUND_CODE, ResourceExceptionConstant.ACADEMIC_BACKGROUND_NOT_FOUND_VALUE);
+        }
         LOGGER.debug("End call of  the web service get 'Academic Background' by id, id={}",id);
-        return (academicBackgroundOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(academicBackgroundOut);
+        return ResponseEntity.ok(academicBackgroundOut);
     }
 
     @Override

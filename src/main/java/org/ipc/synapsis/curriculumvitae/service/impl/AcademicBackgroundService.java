@@ -6,6 +6,7 @@ import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
 import org.ipc.synapsis.curriculumvitae.proxy.IAcademicBackgroundProxy;
 import org.ipc.synapsis.curriculumvitae.proxy.impl.LanguageProxy;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
     IAcademicBackgroundProxy academicBackgroundProxy;
 
     @Override
-    public AcademicBackgroundOut get(final String id) {
+    public AcademicBackgroundOut get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Service layer get a 'Academic Background OUT',id:{}",id);
         AcademicBackgroundOut academicBackgroundOut = null;
         AcademicBackground academicBackground = academicBackgroundProxy.get(id);

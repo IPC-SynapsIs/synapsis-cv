@@ -4,6 +4,7 @@ import org.ipc.synapsis.curriculumvitae.dao.ILanguageDao;
 import org.ipc.synapsis.curriculumvitae.entity.Language;
 import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
 import org.ipc.synapsis.curriculumvitae.repository.ILanguageRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,19 @@ public class LanguageDao implements ILanguageDao {
     ILanguageRepository languageRepository;
 
     @Override
-    public Language get(final String id) {
+    public Language get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Dao layer get a 'Language',id:{}",id);
-        Language language = languageRepository.findOne(UUID.fromString(id));
+        Language language = null;
+        try {
+            language = languageRepository.findOne(UUID.fromString(id));
+        }catch(NumberFormatException e){
+            LOGGER.warn("Resource 'Language' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Language",e);
+        }
+        if (language == null){
+            LOGGER.warn("Resource 'Language' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Language");
+        }
         LOGGER.debug("End call Dao layer get a 'Language',id:{}",id);
         return language;
     }

@@ -2,6 +2,7 @@ package org.ipc.synapsis.curriculumvitae.resource;
 
 import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.in.MiscallenousIn;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 
 
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 public interface IMiscallenousResource {
     ResponseEntity add(final MiscallenousIn miscallenousIn);
     ResponseEntity update(final String id, final MiscallenousIn miscallenousIn);
-    ResponseEntity get(final String id);
+    ResponseEntity get(final String id) throws HttpResourceNotFoundException;
     ResponseEntity getAll();
     ResponseEntity remove(final String id);
 }

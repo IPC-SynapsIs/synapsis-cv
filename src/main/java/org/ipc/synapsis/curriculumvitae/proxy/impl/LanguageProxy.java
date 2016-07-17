@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.proxy.impl;
 import org.ipc.synapsis.curriculumvitae.dao.ILanguageDao;
 import org.ipc.synapsis.curriculumvitae.entity.Language;
 import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class LanguageProxy implements ILanguageProxy {
     ILanguageDao languageDao;
 
     @Override
-    public Language get(final String id) {
+    public Language get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Proxy layer get a 'Language',id:{}",id);
         Language language = languageDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Language',id:{}",id);

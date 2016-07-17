@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.proxy.impl;
 import org.ipc.synapsis.curriculumvitae.dao.IProfessionalExperienceDao;
 import org.ipc.synapsis.curriculumvitae.entity.ProfessionalExperience;
 import org.ipc.synapsis.curriculumvitae.proxy.IProfessionalExperienceProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProfessionalExperienceProxy implements IProfessionalExperienceProxy
     IProfessionalExperienceDao professionalExperienceDao;
 
     @Override
-    public ProfessionalExperience get(final String id) {
+    public ProfessionalExperience get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Proxy layer get a 'Professional Experience',id:{}",id);
         ProfessionalExperience professionalExperience = professionalExperienceDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Professional Experience',id:{}",id);

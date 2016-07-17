@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.dao.impl;
 import org.ipc.synapsis.curriculumvitae.dao.IAcademicBackgroundDao;
 import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
 import org.ipc.synapsis.curriculumvitae.repository.IAcademicBackgroundRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,19 @@ public class AcademicBackgroundDao implements IAcademicBackgroundDao {
     IAcademicBackgroundRepository academicBackgroundRepository;
 
     @Override
-    public AcademicBackground get(final String id) {
+    public AcademicBackground get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Dao layer get a 'Academic Background',id:{}",id);
-        AcademicBackground academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
+        AcademicBackground academicBackground = null;
+        try {
+            academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
+        }catch(NumberFormatException e){
+            LOGGER.warn("Resource 'Academic Background' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Academic Background",e);
+        }//IllegalArgumentException
+        if (academicBackground == null){
+            LOGGER.warn("Resource 'Academic Background' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Academic Background");
+        }
         LOGGER.debug("End call Dao layer get a 'Academic Background',id:{}",id);
         return academicBackground;
     }

@@ -4,6 +4,7 @@ import org.ipc.synapsis.curriculumvitae.dao.IProfessionalExperienceDao;
 import org.ipc.synapsis.curriculumvitae.entity.ProfessionalExperience;
 import org.ipc.synapsis.curriculumvitae.proxy.IProfessionalExperienceProxy;
 import org.ipc.synapsis.curriculumvitae.repository.IProfessionalExperienceRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,20 @@ public class ProfessionalExperienceDao implements IProfessionalExperienceDao {
     IProfessionalExperienceRepository professionalExperienceRepository;
 
     @Override
-    public ProfessionalExperience get(final String id) {
+    public ProfessionalExperience get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Dao layer get a 'Professional Experience',id:{}",id);
-        ProfessionalExperience professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
+        ProfessionalExperience professionalExperience = null;
+        professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
+        try {
+            professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
+        }catch(NumberFormatException e){
+            LOGGER.warn("Resource 'Professional Experience' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Professional Experience",e);
+        }
+        if (professionalExperience == null){
+            LOGGER.warn("Resource 'Professional Experience' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Professional Experience");
+        }
         LOGGER.debug("End call Dao layer get a 'Professional Experience',id:{}",id);
         return professionalExperience;
     }

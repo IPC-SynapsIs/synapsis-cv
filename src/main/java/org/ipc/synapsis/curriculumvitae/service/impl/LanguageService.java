@@ -6,6 +6,7 @@ import org.ipc.synapsis.curriculumvitae.entity.Language;
 import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
 import org.ipc.synapsis.curriculumvitae.proxy.impl.LanguageProxy;
 import org.ipc.synapsis.curriculumvitae.service.ILanguageService;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class LanguageService implements ILanguageService {
     ILanguageProxy languageProxy;
 
     @Override
-    public LanguageOut get(final String id) {
+    public LanguageOut get(final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call Service layer get a 'Language OUT',id:{}",id);
         LanguageOut languageOut = null;
         Language language = languageProxy.get(id);

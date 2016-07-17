@@ -1,6 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
+import org.ipc.synapsis.curriculumvitae.bean.exception.ResourceNotFound;
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
@@ -64,8 +65,8 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Search a 'Curriculum Vitae' by its id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The 'Curriculum Vitae' was found and is in the response", response = CurriculumVitae.class),
-            @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = void.class)
+            @ApiResponse(code = 200, message = "The 'Curriculum Vitae' was found and is in the response", response = CurriculumVitaeOut.class),
+            @ApiResponse(code = 404, message = "The 'Curriculum Vitae' cannot be found", response = ResourceNotFound.class)
     })
     public ResponseEntity get(@ApiParam(value = "The given 'Curriculum Vitae' id", required = true) @PathVariable("id") final String id) throws ResourceNotFoundException {
         LOGGER.debug("Start call of the web service get 'Curriculum Vitae' by id, id={}",id);
@@ -78,7 +79,7 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
                     ResourceExceptionConstant.CURRICULUM_VITAE_NOT_FOUND_CODE, ResourceExceptionConstant.CURRICULUM_VITAE_NOT_FOUND_VALUE);
         }
         LOGGER.debug("End call of  the web service get 'Curriculum Vitae' by id, id={}",id);
-        return (curriculumVitaeOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(curriculumVitaeOut);
+        return ResponseEntity.ok(curriculumVitaeOut);
     }
 
     @Override

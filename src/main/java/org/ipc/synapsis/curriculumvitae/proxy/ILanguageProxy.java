@@ -1,12 +1,13 @@
 package org.ipc.synapsis.curriculumvitae.proxy;
 
 import org.ipc.synapsis.curriculumvitae.entity.Language;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 
 /**
  * Created by mbasri on 19/06/2016.
  */
 public interface ILanguageProxy {
-    Language get(final String id);
+    Language get(final String id) throws ResourceNotFoundException;
     Iterable<Language> getAll();
     Language add(final Language language);
     Language update(final Language language);

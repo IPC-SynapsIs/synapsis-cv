@@ -1,6 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.resource.impl;
 
 import io.swagger.annotations.*;
+import org.ipc.synapsis.curriculumvitae.bean.exception.ResourceNotFound;
 import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.in.MiscallenousIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.AcademicBackgroundOut;
@@ -10,6 +11,9 @@ import org.ipc.synapsis.curriculumvitae.resource.IAcademicBackgroundResource;
 import org.ipc.synapsis.curriculumvitae.resource.IMiscallenousResource;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
 import org.ipc.synapsis.curriculumvitae.service.IMiscallenousService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,14 +68,21 @@ public class MiscallenousResource implements IMiscallenousResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ApiOperation(value = "Search a 'Miscallenous' by its id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The 'Miscallenous' was found and is in the response", response = CurriculumVitae.class),
-            @ApiResponse(code = 404, message = "The 'Miscallenous' cannot be found", response = void.class)
+            @ApiResponse(code = 200, message = "The 'Miscallenous' was found and is in the response", response = MiscallenousOut.class),
+            @ApiResponse(code = 404, message = "The 'Miscallenous' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Miscallenous' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity get(@ApiParam(value = "The given 'Miscallenous' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
         LOGGER.debug("Start call of the web service get 'Miscallenous' by id, id={}",id);
-        MiscallenousOut miscallenousOut = miscallenousService.get(id);
+        MiscallenousOut miscallenousOut = null;
+        try {
+            miscallenousOut = miscallenousService.get(id);
+        } catch (ResourceNotFoundException e) {
+            LOGGER.warn("Resource 'Miscallenous' OUT not found, id:{}",id);
+            throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
+                    ResourceExceptionConstant.MISCALLENOUS_NOT_FOUND_CODE, ResourceExceptionConstant.MISCALLENOUS_NOT_FOUND_VALUE);
+        }
         LOGGER.debug("End call of  the web service get 'Miscallenous' by id, id={}",id);
-        return (miscallenousOut==null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(miscallenousOut);
+        return ResponseEntity.ok(miscallenousOut);
     }
 
     @Override

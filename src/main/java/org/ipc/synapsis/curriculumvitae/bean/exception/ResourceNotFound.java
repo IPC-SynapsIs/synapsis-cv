@@ -1,13 +1,25 @@
 package org.ipc.synapsis.curriculumvitae.bean.exception;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * Created by mbasri on 16/07/2016.
  */
+
+@ApiModel(value = "'Resource Not Found'", description = "The 'Resource Not Found' model")
 public class ResourceNotFound {
 
+    @ApiModelProperty(value = "'Resource Not Found' code property", dataType = "java.lang.String")
     private String code;
+
+    @ApiModelProperty(value = "'Resource Not Found' label property", dataType = "java.lang.String")
     private String label;
+
+    @ApiModelProperty(value = "'Resource Not Found' ID property", dataType = "java.lang.String")
     private String resourceID;
+
+    @ApiModelProperty(value = "'Resource Not Found' name property", dataType = "java.lang.String")
     private String resourceName;
 
 
