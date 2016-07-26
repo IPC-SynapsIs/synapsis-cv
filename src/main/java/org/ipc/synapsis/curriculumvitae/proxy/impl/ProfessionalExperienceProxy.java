@@ -23,7 +23,7 @@ public class ProfessionalExperienceProxy implements IProfessionalExperienceProxy
     IProfessionalExperienceDao professionalExperienceDao;
 
     @Override
-    public ProfessionalExperience get(final String id) throws ResourceNotFoundException {
+    public ProfessionalExperience get(final String id) {
         LOGGER.debug("Start call Proxy layer get a 'Professional Experience',id:{}",id);
         ProfessionalExperience professionalExperience = professionalExperienceDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Professional Experience',id:{}",id);

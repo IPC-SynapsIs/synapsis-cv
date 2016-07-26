@@ -23,19 +23,11 @@ public class AcademicBackgroundDao implements IAcademicBackgroundDao {
     IAcademicBackgroundRepository academicBackgroundRepository;
 
     @Override
-    public AcademicBackground get(final String id) throws ResourceNotFoundException {
+    public AcademicBackground get(final String id) {
         LOGGER.debug("Start call Dao layer get a 'Academic Background',id:{}",id);
         AcademicBackground academicBackground = null;
-        try {
-            academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
-        }catch(NumberFormatException e){
-            LOGGER.warn("Resource 'Academic Background' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Academic Background",e);
-        }//IllegalArgumentException
-        if (academicBackground == null){
-            LOGGER.warn("Resource 'Academic Background' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Academic Background");
-        }
+        academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
+        //IllegalArgumentException
         LOGGER.debug("End call Dao layer get a 'Academic Background',id:{}",id);
         return academicBackground;
     }

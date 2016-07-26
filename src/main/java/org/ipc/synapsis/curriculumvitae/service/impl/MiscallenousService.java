@@ -33,6 +33,10 @@ public class MiscallenousService implements IMiscallenousService {
         LOGGER.debug("Start call Service layer get a 'Miscallenous OUT',id:{}",id);
         MiscallenousOut miscallenousOut = null;
         Miscallenous miscallenous = miscallenousProxy.get(id);
+        if (miscallenous == null){
+            LOGGER.warn("Resource 'Miscallenous' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Miscallenous");
+        }
         miscallenousOut = POJOToBeanOut.getMiscallenousOut(miscallenous);
         LOGGER.debug("End call Service layer get a 'Miscallenous OUT',{}",miscallenousOut);
         return miscallenousOut;

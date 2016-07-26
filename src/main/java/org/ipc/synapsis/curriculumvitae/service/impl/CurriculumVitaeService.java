@@ -32,6 +32,10 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
         LOGGER.debug("Start call Service layer get a 'Curriculum Vitae OUT',id:{}",id);
         CurriculumVitaeOut curriculumVitaeOut = null;
         CurriculumVitae curriculumVitae = curriculumVitaeProxy.get(id);
+        if (curriculumVitae == null){
+            LOGGER.warn("Resource 'Curriculum Vitae' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Curriculum Vitae");
+        }
         curriculumVitaeOut = POJOToBeanOut.getCurriculumVitaeOut(curriculumVitae);
         LOGGER.debug("End call Service layer get a 'Curriculum Vitae OUT',{}",curriculumVitaeOut);
         return curriculumVitaeOut;

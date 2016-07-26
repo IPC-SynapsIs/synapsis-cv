@@ -33,6 +33,10 @@ public class LanguageService implements ILanguageService {
         LOGGER.debug("Start call Service layer get a 'Language OUT',id:{}",id);
         LanguageOut languageOut = null;
         Language language = languageProxy.get(id);
+        if (language == null){
+            LOGGER.warn("Resource 'Language' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Language");
+        }
         languageOut = POJOToBeanOut.getLanguageOut(language);
         LOGGER.debug("End call Service layer get a 'Language OUT',{}",languageOut);
         return languageOut;

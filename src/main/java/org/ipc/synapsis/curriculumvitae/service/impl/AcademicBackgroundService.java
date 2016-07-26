@@ -33,6 +33,10 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
         LOGGER.debug("Start call Service layer get a 'Academic Background OUT',id:{}",id);
         AcademicBackgroundOut academicBackgroundOut = null;
         AcademicBackground academicBackground = academicBackgroundProxy.get(id);
+        if (academicBackground == null){
+            LOGGER.warn("Resource 'Academic Background' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Academic Background");
+        }
         academicBackgroundOut = POJOToBeanOut.getAcademicBackgroundOut(academicBackground);
         LOGGER.debug("End call Service layer get a 'Academic Background OUT',{}",academicBackgroundOut);
         return academicBackgroundOut;

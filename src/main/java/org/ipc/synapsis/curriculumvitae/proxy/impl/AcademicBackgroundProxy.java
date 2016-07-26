@@ -21,7 +21,7 @@ public class AcademicBackgroundProxy implements IAcademicBackgroundProxy {
     IAcademicBackgroundDao academicBackgroundDao;
 
     @Override
-    public AcademicBackground get(final String id) throws ResourceNotFoundException {
+    public AcademicBackground get(final String id) {
         LOGGER.debug("Start call Proxy layer get a 'Academic Background',id:{}",id);
         AcademicBackground academicBackground = academicBackgroundDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Academic Background',id:{}",id);

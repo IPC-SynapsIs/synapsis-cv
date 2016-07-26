@@ -24,19 +24,10 @@ public class CurriculumVitaeDao implements ICurriculumVitaeDao {
     ICurriculumVitaeRepository curriculumVitaeRepository;
 
     @Override
-    public CurriculumVitae get(final String id) throws ResourceNotFoundException {
+    public CurriculumVitae get(final String id) {
         LOGGER.debug("Start call Dao layer get a 'Curriculum Vitae',id:{}",id);
         CurriculumVitae curriculumVitae = null;
-        try {
-            curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
-        }catch(NumberFormatException e){
-            LOGGER.warn("Resource 'Curriculum Vitae' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Curriculum Vitae",e);
-        }
-        if (curriculumVitae == null){
-            LOGGER.warn("Resource 'Curriculum Vitae' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Curriculum Vitae");
-        }
+        curriculumVitae = curriculumVitaeRepository.findOne(UUID.fromString(id));
         LOGGER.debug("End call Dao layer get a 'Curriculum Vitae',id:{}",id);
         return curriculumVitae;
     }

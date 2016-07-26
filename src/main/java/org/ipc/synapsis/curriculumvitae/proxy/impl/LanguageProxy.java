@@ -21,7 +21,7 @@ public class LanguageProxy implements ILanguageProxy {
     ILanguageDao languageDao;
 
     @Override
-    public Language get(final String id) throws ResourceNotFoundException {
+    public Language get(final String id) {
         LOGGER.debug("Start call Proxy layer get a 'Language',id:{}",id);
         Language language = languageDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Language',id:{}",id);

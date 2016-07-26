@@ -24,19 +24,10 @@ public class LanguageDao implements ILanguageDao {
     ILanguageRepository languageRepository;
 
     @Override
-    public Language get(final String id) throws ResourceNotFoundException {
+    public Language get(final String id) {
         LOGGER.debug("Start call Dao layer get a 'Language',id:{}",id);
         Language language = null;
-        try {
-            language = languageRepository.findOne(UUID.fromString(id));
-        }catch(NumberFormatException e){
-            LOGGER.warn("Resource 'Language' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Language",e);
-        }
-        if (language == null){
-            LOGGER.warn("Resource 'Language' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Language");
-        }
+        language = languageRepository.findOne(UUID.fromString(id));
         LOGGER.debug("End call Dao layer get a 'Language',id:{}",id);
         return language;
     }

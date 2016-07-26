@@ -24,20 +24,11 @@ public class ProfessionalExperienceDao implements IProfessionalExperienceDao {
     IProfessionalExperienceRepository professionalExperienceRepository;
 
     @Override
-    public ProfessionalExperience get(final String id) throws ResourceNotFoundException {
+    public ProfessionalExperience get(final String id) {
         LOGGER.debug("Start call Dao layer get a 'Professional Experience',id:{}",id);
         ProfessionalExperience professionalExperience = null;
         professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
-        try {
-            professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
-        }catch(NumberFormatException e){
-            LOGGER.warn("Resource 'Professional Experience' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Professional Experience",e);
-        }
-        if (professionalExperience == null){
-            LOGGER.warn("Resource 'Professional Experience' not found, id:{}",id);
-            throw new ResourceNotFoundException(id,"Professional Experience");
-        }
+        professionalExperience = professionalExperienceRepository.findOne(UUID.fromString(id));
         LOGGER.debug("End call Dao layer get a 'Professional Experience',id:{}",id);
         return professionalExperience;
     }

@@ -21,7 +21,7 @@ public class CurriculumVitaeProxy implements ICurriculumVitaeProxy{
     ICurriculumVitaeDao curriculumVitaeDao;
 
     @Override
-    public CurriculumVitae get(String id) throws ResourceNotFoundException {
+    public CurriculumVitae get(String id) {
         LOGGER.debug("Start call Proxy layer get a 'Curriculum Vitae',id:{}",id);
         CurriculumVitae curriculumVitae = curriculumVitaeDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Curriculum Vitae',id:{}",id);

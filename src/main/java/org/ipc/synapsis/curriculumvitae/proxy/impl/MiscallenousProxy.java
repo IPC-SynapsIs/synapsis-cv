@@ -23,7 +23,7 @@ public class MiscallenousProxy implements IMiscallenousProxy {
     IMiscallenousDao miscallenousDao;
 
     @Override
-    public Miscallenous get(final String id) throws ResourceNotFoundException {
+    public Miscallenous get(final String id) {
         LOGGER.debug("Start call Proxy layer get a 'Miscallenous',id:{}",id);
         Miscallenous miscallenous =  miscallenousDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Miscallenous',id:{}",id);

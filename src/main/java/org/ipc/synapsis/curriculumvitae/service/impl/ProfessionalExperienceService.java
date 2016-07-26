@@ -33,6 +33,10 @@ public class ProfessionalExperienceService implements IProfessionalExperienceSer
         LOGGER.debug("Start call Service layer get a 'Professional Experience OUT',id:{}",id);
         ProfessionalExperienceOut professionalExperienceOut = null;
         ProfessionalExperience professionalExperience = professionalExperienceProxy.get(id);
+        if (professionalExperience == null){
+            LOGGER.warn("Resource 'Professional Experience' not found, id:{}",id);
+            throw new ResourceNotFoundException(id,"Professional Experience");
+        }
         professionalExperienceOut = POJOToBeanOut.getProfessionalExperienceOut(professionalExperience);
         LOGGER.debug("End call Service layer get a 'Professional Experience OUT',{}",professionalExperienceOut);
         return professionalExperienceOut;
