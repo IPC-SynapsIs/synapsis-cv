@@ -108,9 +108,15 @@ public class CurriculumVitaeResource implements ICurriculumVitaeResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Curriculum Vitae' successfully deleted", response = void.class)
     })
-    public ResponseEntity remove(@PathVariable("id") final String id) {
+    public ResponseEntity remove(@PathVariable("id") final String id) throws HttpParseException {
         LOGGER.debug("Start call of the web service delete 'Curriculum Vitae' by id,id={}",id);
-        curriculumVitaeService.remove(id);
+        try {
+            curriculumVitaeService.remove(id);
+        }catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                    ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
+        }
         LOGGER.debug("End call of the web service delete 'Curriculum Vitae' by id,id={}",id);
         return ResponseEntity.ok().build();
     }

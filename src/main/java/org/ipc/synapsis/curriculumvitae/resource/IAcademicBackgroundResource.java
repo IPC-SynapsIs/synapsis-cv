@@ -2,6 +2,7 @@ package org.ipc.synapsis.curriculumvitae.resource;
 
 import org.ipc.synapsis.curriculumvitae.bean.in.AcademicBackgroundIn;
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,5 @@ public interface IAcademicBackgroundResource {
     ResponseEntity update(final String id, final AcademicBackgroundIn academicBackgroundIn);
     ResponseEntity get(final String id) throws HttpResourceNotFoundException, HttpParseException;
     ResponseEntity getAll();
-    ResponseEntity remove(final String id);
+    ResponseEntity remove(final String id) throws HttpParseException;
 }

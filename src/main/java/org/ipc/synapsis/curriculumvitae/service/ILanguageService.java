@@ -16,5 +16,5 @@ public interface ILanguageService {
     Iterable<LanguageOut> getAll();
     UUID add(final LanguageIn languageIn);
     void update(final String id, final LanguageIn languageIn);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

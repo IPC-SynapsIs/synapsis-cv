@@ -64,9 +64,14 @@ public class CurriculumVitaeDao implements ICurriculumVitaeDao {
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(String id) throws ParseException {
         LOGGER.debug("Start call Dao layer remove 'Curriculum Vitae',id:{}",id);
+        try {
         curriculumVitaeRepository.delete(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer remove 'Curriculum Vitae',id:{}",id);
     }
 }

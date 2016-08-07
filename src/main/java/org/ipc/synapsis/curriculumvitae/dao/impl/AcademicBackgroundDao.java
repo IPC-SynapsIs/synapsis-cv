@@ -62,9 +62,14 @@ public class AcademicBackgroundDao implements IAcademicBackgroundDao {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Dao layer remove 'Academic Background',id:{}",id);
-        academicBackgroundRepository.delete(UUID.fromString(id));
+        try {
+            academicBackgroundRepository.delete(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer remove 'Academic Background',id:{}",id);
     }
 }

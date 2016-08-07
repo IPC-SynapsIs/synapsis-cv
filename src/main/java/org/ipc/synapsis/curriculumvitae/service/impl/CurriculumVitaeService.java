@@ -76,7 +76,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Service layer remove 'Curriculum Vitae',id:{}",id);
         curriculumVitaeProxy.remove(id);
         LOGGER.debug("Start call Service layer remove 'Curriculum Vitae',id:{}",id);

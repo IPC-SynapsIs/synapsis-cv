@@ -13,5 +13,5 @@ public interface IMiscallenousDao {
     Iterable<Miscallenous> getAll();
     Miscallenous add(final Miscallenous miscallenous);
     Miscallenous update(final Miscallenous miscallenous);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

@@ -16,5 +16,5 @@ public interface ICurriculumVitaeService {
     Iterable<CurriculumVitaeOut> getAll();
     UUID add(final CurriculumVitaeIn curriculumVitaeIn);
     void update(final String id, final CurriculumVitaeIn curriculumVitaeIn);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

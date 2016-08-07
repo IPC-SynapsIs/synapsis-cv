@@ -12,5 +12,5 @@ public interface ICurriculumVitaeProxy {
     Iterable<CurriculumVitae> getAll();
     CurriculumVitae add(final CurriculumVitae curriculumVitae);
     CurriculumVitae update(final CurriculumVitae curriculumVitae);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

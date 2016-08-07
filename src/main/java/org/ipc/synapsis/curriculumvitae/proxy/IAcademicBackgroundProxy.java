@@ -12,5 +12,5 @@ public interface IAcademicBackgroundProxy {
     Iterable<AcademicBackground> getAll();
     AcademicBackground add(final AcademicBackground academicBackground);
     AcademicBackground update(final AcademicBackground academicBackground);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

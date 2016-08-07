@@ -16,5 +16,5 @@ public interface IAcademicBackgroundService {
     Iterable<AcademicBackgroundOut> getAll();
     UUID add(final AcademicBackgroundIn academicBackgroundIn);
     void update(final String id, final AcademicBackgroundIn academicBackgroundIn);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

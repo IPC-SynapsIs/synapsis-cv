@@ -54,7 +54,7 @@ public class CurriculumVitaeProxy implements ICurriculumVitaeProxy{
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer remove 'Curriculum Vitae',id:{}",id);
         curriculumVitaeDao.remove(id);
         LOGGER.debug("End call Proxy layer remove 'Curriculum Vitae',id:{}",id);

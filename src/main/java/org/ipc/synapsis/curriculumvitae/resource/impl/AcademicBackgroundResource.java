@@ -108,9 +108,16 @@ public class AcademicBackgroundResource implements IAcademicBackgroundResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Academic Background' successfully deleted", response = void.class)
     })
-    public ResponseEntity remove(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity remove(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) throws HttpParseException {
         LOGGER.debug("Start call of the web service delete 'Academic Background' by id,id={}",id);
-        academicBackgroundService.remove(id);
+        try {
+            academicBackgroundService.remove(id);
+        }
+            catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
+            }
         LOGGER.debug("End call of the web service delete 'Academic Background' by id,id={}",id);
         return ResponseEntity.ok().build();
     }

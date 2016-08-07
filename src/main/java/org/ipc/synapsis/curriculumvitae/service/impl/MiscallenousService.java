@@ -77,7 +77,7 @@ public class MiscallenousService implements IMiscallenousService {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Service layer remove 'Miscallenous',id:{}",id);
         miscallenousProxy.remove(id);
         LOGGER.debug("End call Service layer remove 'Miscallenous',id:{}",id);

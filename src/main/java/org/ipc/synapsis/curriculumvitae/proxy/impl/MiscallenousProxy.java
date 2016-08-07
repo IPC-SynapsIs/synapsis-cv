@@ -56,7 +56,7 @@ public class MiscallenousProxy implements IMiscallenousProxy {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer remove 'Miscallenous',id:{}",id);
         miscallenousDao.remove(id);
         LOGGER.debug("End call Proxy layer remove 'Miscallenous',id:{}",id);

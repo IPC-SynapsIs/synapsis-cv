@@ -113,10 +113,16 @@ public class ProfessionalExperienceResource implements IProfessionalExperienceRe
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Existing 'Professional Experience' successfully deleted", response = void.class)
     })
-    public ResponseEntity remove(@ApiParam(value = "The given 'Professional Experience' id", required = true) @PathVariable("id") String id) {
+    public ResponseEntity remove(@ApiParam(value = "The given 'Professional Experience' id", required = true) @PathVariable("id") String id) throws HttpParseException {
         LOGGER.debug("Start call of the web service delete 'Professional Experience' by id,id={}",id);
-        professionalExperienceService.remove(id);
-        LOGGER.debug("End call of the web service delete 'Professional Experience' by id,id={}",id);
+        try {
+            professionalExperienceService.remove(id);
+        }catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
+            }
+            LOGGER.debug("End call of the web service delete 'Professional Experience' by id,id={}",id);
         return ResponseEntity.ok().build();
     }
 }

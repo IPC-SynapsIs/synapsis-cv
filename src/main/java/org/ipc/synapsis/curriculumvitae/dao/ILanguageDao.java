@@ -12,5 +12,5 @@ public interface ILanguageDao {
     Iterable<Language> getAll();
     Language add(final Language language);
     Language update(final Language language);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

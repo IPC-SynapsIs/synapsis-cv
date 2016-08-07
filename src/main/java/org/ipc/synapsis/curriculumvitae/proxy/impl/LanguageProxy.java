@@ -54,7 +54,7 @@ public class LanguageProxy implements ILanguageProxy {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer remove 'Language',id:{}",id);
         languageDao.remove(id);
         LOGGER.debug("End call Proxy layer remove 'Language',id:{}",id);

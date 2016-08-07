@@ -54,7 +54,7 @@ public class AcademicBackgroundProxy implements IAcademicBackgroundProxy {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer remove 'Academic Background',id:{}",id);
         academicBackgroundDao.remove(id);
         LOGGER.debug("End call Proxy layer remove 'Academic Background',id:{}",id);

@@ -16,5 +16,5 @@ public interface IProfessionalExperienceService {
     Iterable<ProfessionalExperienceOut> getAll();
     UUID add(final ProfessionalExperienceIn professionalExperienceIn);
     void update(final String id, final ProfessionalExperienceIn professionalExperienceIn);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

@@ -63,9 +63,14 @@ public class LanguageDao implements ILanguageDao {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Dao layer remove 'Language',id:{}",id);
+        try {
         languageRepository.delete(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer remove 'Language',id:{}",id);
     }
 }

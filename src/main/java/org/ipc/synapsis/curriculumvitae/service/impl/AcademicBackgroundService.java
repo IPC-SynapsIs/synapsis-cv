@@ -77,7 +77,7 @@ public class AcademicBackgroundService implements IAcademicBackgroundService {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Service layer remove 'Academic Background',id:{}",id);
         academicBackgroundProxy.remove(id);
         LOGGER.debug("End call Service layer remove 'Academic Background',id:{}",id);

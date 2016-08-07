@@ -13,5 +13,5 @@ public interface IProfessionalExperienceProxy {
     Iterable<ProfessionalExperience> getAll();
     ProfessionalExperience add(final ProfessionalExperience professionalExperience);
     ProfessionalExperience update(final ProfessionalExperience professionalExperience);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

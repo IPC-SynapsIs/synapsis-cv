@@ -16,5 +16,5 @@ public interface IMiscallenousService {
     Iterable<MiscallenousOut> getAll();
     UUID add(final MiscallenousIn miscallenousIn);
     void update(final String id, final MiscallenousIn miscallenousIn);
-    void remove(final String id);
+    void remove(final String id) throws ParseException;
 }

@@ -77,7 +77,7 @@ public class LanguageService implements ILanguageService {
     }
 
     @Override
-    public void remove(final String id) {
+    public void remove(final String id) throws ParseException {
         LOGGER.debug("Start call Service layer remove 'Language',id:{}",id);
         languageProxy.remove(id);
         LOGGER.debug("End call Service layer remove 'Language',id:{}",id);
