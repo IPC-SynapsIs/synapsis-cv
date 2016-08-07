@@ -4,6 +4,7 @@ import org.ipc.synapsis.curriculumvitae.dao.ILanguageDao;
 import org.ipc.synapsis.curriculumvitae.entity.Language;
 import org.ipc.synapsis.curriculumvitae.proxy.ILanguageProxy;
 import org.ipc.synapsis.curriculumvitae.repository.ILanguageRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,15 @@ public class LanguageDao implements ILanguageDao {
     ILanguageRepository languageRepository;
 
     @Override
-    public Language get(final String id) {
+    public Language get(final String id) throws ParseException {
         LOGGER.debug("Start call Dao layer get a 'Language',id:{}",id);
         Language language = null;
-        language = languageRepository.findOne(UUID.fromString(id));
+        try {
+            language = languageRepository.findOne(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer get a 'Language',id:{}",id);
         return language;
     }

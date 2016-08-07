@@ -8,8 +8,11 @@ import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.IAcademicBackgroundResource;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ParseExceptionConstant;
 import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +71,7 @@ public class AcademicBackgroundResource implements IAcademicBackgroundResource {
             @ApiResponse(code = 200, message = "The 'Academic Background' was found and is in the response", response = AcademicBackgroundOut.class),
             @ApiResponse(code = 404, message = "The 'Academic Background' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
+    public ResponseEntity get(@ApiParam(value = "The given 'Academic Background' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException, HttpParseException {
         LOGGER.debug("Start call of the web service get 'Academic Background' by id, id={}",id);
         AcademicBackgroundOut academicBackgroundOut = null;
         try {
@@ -77,6 +80,10 @@ public class AcademicBackgroundResource implements IAcademicBackgroundResource {
             LOGGER.warn("Resource 'Academic Background' OUT not found, id:{}",id);
             throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
                     ResourceExceptionConstant.ACADEMIC_BACKGROUND_NOT_FOUND_CODE, ResourceExceptionConstant.ACADEMIC_BACKGROUND_NOT_FOUND_VALUE);
+        } catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                    ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
         }
         LOGGER.debug("End call of  the web service get 'Academic Background' by id, id={}",id);
         return ResponseEntity.ok(academicBackgroundOut);

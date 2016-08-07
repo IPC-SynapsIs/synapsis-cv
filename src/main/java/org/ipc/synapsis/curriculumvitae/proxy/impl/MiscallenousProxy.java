@@ -4,6 +4,7 @@ package org.ipc.synapsis.curriculumvitae.proxy.impl;
 import org.ipc.synapsis.curriculumvitae.dao.IMiscallenousDao;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class MiscallenousProxy implements IMiscallenousProxy {
     IMiscallenousDao miscallenousDao;
 
     @Override
-    public Miscallenous get(final String id) {
+    public Miscallenous get(final String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer get a 'Miscallenous',id:{}",id);
         Miscallenous miscallenous =  miscallenousDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Miscallenous',id:{}",id);

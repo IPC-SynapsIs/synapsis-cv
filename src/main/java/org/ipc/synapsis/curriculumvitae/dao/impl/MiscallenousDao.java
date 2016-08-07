@@ -5,6 +5,7 @@ import org.ipc.synapsis.curriculumvitae.dao.IMiscallenousDao;
 import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
 import org.ipc.synapsis.curriculumvitae.repository.IMiscallenousRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,15 @@ public class MiscallenousDao implements IMiscallenousDao {
     IMiscallenousRepository miscallenousRepository;
 
     @Override
-    public Miscallenous get(final String id) {
+    public Miscallenous get(final String id) throws ParseException {
         LOGGER.debug("Start call Dao layer get a 'Miscallenous',id:{}",id);
         Miscallenous miscallenous = null;
-        miscallenous = miscallenousRepository.findOne(UUID.fromString(id));
+        try {
+            miscallenous = miscallenousRepository.findOne(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer get a 'Miscallenous',id:{}",id);
         return miscallenous;
     }

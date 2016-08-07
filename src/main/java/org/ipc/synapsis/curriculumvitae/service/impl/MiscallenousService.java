@@ -6,6 +6,7 @@ import org.ipc.synapsis.curriculumvitae.entity.Miscallenous;
 import org.ipc.synapsis.curriculumvitae.proxy.IMiscallenousProxy;
 import org.ipc.synapsis.curriculumvitae.proxy.impl.LanguageProxy;
 import org.ipc.synapsis.curriculumvitae.service.IMiscallenousService;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -29,7 +30,7 @@ public class MiscallenousService implements IMiscallenousService {
     IMiscallenousProxy miscallenousProxy;
 
     @Override
-    public MiscallenousOut get(final String id) throws ResourceNotFoundException {
+    public MiscallenousOut get(final String id) throws ResourceNotFoundException, ParseException {
         LOGGER.debug("Start call Service layer get a 'Miscallenous OUT',id:{}",id);
         MiscallenousOut miscallenousOut = null;
         Miscallenous miscallenous = miscallenousProxy.get(id);

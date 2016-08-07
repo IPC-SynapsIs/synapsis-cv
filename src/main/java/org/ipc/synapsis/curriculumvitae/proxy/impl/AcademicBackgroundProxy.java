@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.proxy.impl;
 import org.ipc.synapsis.curriculumvitae.dao.IAcademicBackgroundDao;
 import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
 import org.ipc.synapsis.curriculumvitae.proxy.IAcademicBackgroundProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class AcademicBackgroundProxy implements IAcademicBackgroundProxy {
     IAcademicBackgroundDao academicBackgroundDao;
 
     @Override
-    public AcademicBackground get(final String id) {
+    public AcademicBackground get(final String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer get a 'Academic Background',id:{}",id);
         AcademicBackground academicBackground = academicBackgroundDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Academic Background',id:{}",id);

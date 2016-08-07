@@ -1,6 +1,8 @@
 package org.ipc.synapsis.curriculumvitae.util.exception;
 
+import org.ipc.synapsis.curriculumvitae.bean.exception.ParseError;
 import org.ipc.synapsis.curriculumvitae.bean.exception.ResourceNotFound;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +25,13 @@ public class GlobalExceptionHandler {
         resourceNotFound = new ResourceNotFound(e.getCode(), e.getLabel(), e.getResourceID(), e.getResourceName());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resourceNotFound);
     }
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(value = HttpParseException.class)
+    public ResponseEntity handleHttpParseExceptionException(HttpParseException e){
+        ParseError parseError = null;
+        parseError = new ParseError(e.getCode(), e.getLabel(), e.getSource(), e.getTarget());
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(parseError);
+    }
+
 }

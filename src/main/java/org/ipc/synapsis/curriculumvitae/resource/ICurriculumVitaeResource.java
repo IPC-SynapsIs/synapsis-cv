@@ -2,6 +2,7 @@ package org.ipc.synapsis.curriculumvitae.resource;
 
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.springframework.http.ResponseEntity;
 
 
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 public interface ICurriculumVitaeResource {
     ResponseEntity add(final CurriculumVitaeIn curriculumVitaeIn);
     ResponseEntity update(final String id,final CurriculumVitaeIn curriculumVitaeIn);
-    ResponseEntity get(final String id) throws ResourceNotFoundException;
+    ResponseEntity get(final String id) throws ResourceNotFoundException, HttpParseException;
     ResponseEntity getAll();
     ResponseEntity remove(final String id);
     ResponseEntity health();

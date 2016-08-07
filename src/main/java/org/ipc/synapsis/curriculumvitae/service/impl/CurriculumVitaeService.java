@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.service.impl;
 import org.ipc.synapsis.curriculumvitae.bean.in.CurriculumVitaeIn;
 import org.ipc.synapsis.curriculumvitae.bean.out.CurriculumVitaeOut;
 import org.ipc.synapsis.curriculumvitae.proxy.ICurriculumVitaeProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -28,7 +29,7 @@ public class CurriculumVitaeService implements ICurriculumVitaeService {
     ICurriculumVitaeProxy curriculumVitaeProxy;
 
     @Override
-    public CurriculumVitaeOut get(final String id) throws ResourceNotFoundException {
+    public CurriculumVitaeOut get(final String id) throws ResourceNotFoundException, ParseException {
         LOGGER.debug("Start call Service layer get a 'Curriculum Vitae OUT',id:{}",id);
         CurriculumVitaeOut curriculumVitaeOut = null;
         CurriculumVitae curriculumVitae = curriculumVitaeProxy.get(id);

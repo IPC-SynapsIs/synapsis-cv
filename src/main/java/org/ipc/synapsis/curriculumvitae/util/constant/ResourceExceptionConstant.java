@@ -1,5 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.util.constant;
 
+import java.util.UUID;
+
 /**
  * Created by mbasri on 16/07/2016.
  */

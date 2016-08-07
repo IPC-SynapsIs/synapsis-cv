@@ -6,6 +6,7 @@ import org.ipc.synapsis.curriculumvitae.entity.ProfessionalExperience;
 import org.ipc.synapsis.curriculumvitae.proxy.IProfessionalExperienceProxy;
 import org.ipc.synapsis.curriculumvitae.proxy.impl.LanguageProxy;
 import org.ipc.synapsis.curriculumvitae.service.IProfessionalExperienceService;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.ipc.synapsis.curriculumvitae.util.mapping.beantopojo.BeanInToPOJO;
 import org.ipc.synapsis.curriculumvitae.util.mapping.pojotobean.POJOToBeanOut;
@@ -29,7 +30,7 @@ public class ProfessionalExperienceService implements IProfessionalExperienceSer
     IProfessionalExperienceProxy professionalExperienceProxy;
 
     @Override
-    public ProfessionalExperienceOut get(final String id) throws ResourceNotFoundException {
+    public ProfessionalExperienceOut get(final String id) throws ResourceNotFoundException, ParseException {
         LOGGER.debug("Start call Service layer get a 'Professional Experience OUT',id:{}",id);
         ProfessionalExperienceOut professionalExperienceOut = null;
         ProfessionalExperience professionalExperience = professionalExperienceProxy.get(id);

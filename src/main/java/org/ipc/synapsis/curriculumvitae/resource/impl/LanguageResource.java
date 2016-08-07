@@ -7,8 +7,11 @@ import org.ipc.synapsis.curriculumvitae.bean.out.LanguageOut;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.resource.ILanguageResource;
 import org.ipc.synapsis.curriculumvitae.service.ILanguageService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ParseExceptionConstant;
 import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +70,7 @@ public class LanguageResource implements ILanguageResource {
             @ApiResponse(code = 200, message = "The 'Language' was found and is in the response", response = LanguageOut.class),
             @ApiResponse(code = 404, message = "The 'Language' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Language' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
+    public ResponseEntity get(@ApiParam(value = "The given 'Language' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException, HttpParseException {
         LOGGER.debug("Start call of the web service get 'Language' by id, id={}",id);
         LanguageOut languageOut = null;
         try {
@@ -76,6 +79,10 @@ public class LanguageResource implements ILanguageResource {
             LOGGER.warn("Resource 'Language' OUT not found, id:{}",id);
             throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
                     ResourceExceptionConstant.LANGUAGE_NOT_FOUND_CODE, ResourceExceptionConstant.LANGUAGE_NOT_FOUND_VALUE);
+        } catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                    ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
         }
         LOGGER.debug("End call of  the web service get 'Language' by id, id={}",id);
         return ResponseEntity.ok(languageOut);

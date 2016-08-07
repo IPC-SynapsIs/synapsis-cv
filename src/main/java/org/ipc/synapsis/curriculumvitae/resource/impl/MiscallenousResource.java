@@ -11,8 +11,11 @@ import org.ipc.synapsis.curriculumvitae.resource.IAcademicBackgroundResource;
 import org.ipc.synapsis.curriculumvitae.resource.IMiscallenousResource;
 import org.ipc.synapsis.curriculumvitae.service.IAcademicBackgroundService;
 import org.ipc.synapsis.curriculumvitae.service.IMiscallenousService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ParseExceptionConstant;
 import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +74,7 @@ public class MiscallenousResource implements IMiscallenousResource {
             @ApiResponse(code = 200, message = "The 'Miscallenous' was found and is in the response", response = MiscallenousOut.class),
             @ApiResponse(code = 404, message = "The 'Miscallenous' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Miscallenous' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
+    public ResponseEntity get(@ApiParam(value = "The given 'Miscallenous' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException, HttpParseException {
         LOGGER.debug("Start call of the web service get 'Miscallenous' by id, id={}",id);
         MiscallenousOut miscallenousOut = null;
         try {
@@ -80,6 +83,10 @@ public class MiscallenousResource implements IMiscallenousResource {
             LOGGER.warn("Resource 'Miscallenous' OUT not found, id:{}",id);
             throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
                     ResourceExceptionConstant.MISCALLENOUS_NOT_FOUND_CODE, ResourceExceptionConstant.MISCALLENOUS_NOT_FOUND_VALUE);
+        } catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                    ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
         }
         LOGGER.debug("End call of  the web service get 'Miscallenous' by id, id={}",id);
         return ResponseEntity.ok(miscallenousOut);

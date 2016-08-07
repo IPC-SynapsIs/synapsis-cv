@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.dao.impl;
 import org.ipc.synapsis.curriculumvitae.dao.IAcademicBackgroundDao;
 import org.ipc.synapsis.curriculumvitae.entity.AcademicBackground;
 import org.ipc.synapsis.curriculumvitae.repository.IAcademicBackgroundRepository;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +24,15 @@ public class AcademicBackgroundDao implements IAcademicBackgroundDao {
     IAcademicBackgroundRepository academicBackgroundRepository;
 
     @Override
-    public AcademicBackground get(final String id) {
+    public AcademicBackground get(final String id) throws ParseException {
         LOGGER.debug("Start call Dao layer get a 'Academic Background',id:{}",id);
         AcademicBackground academicBackground = null;
-        academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
-        //IllegalArgumentException
+        try{
+            academicBackground = academicBackgroundRepository.findOne(UUID.fromString(id));
+        }catch (IllegalArgumentException e){
+            LOGGER.error("Dao layer Cannot parse String:{} to UUID",id);
+            throw new ParseException(String.class.toString(),UUID.class.toString());
+        }
         LOGGER.debug("End call Dao layer get a 'Academic Background',id:{}",id);
         return academicBackground;
     }

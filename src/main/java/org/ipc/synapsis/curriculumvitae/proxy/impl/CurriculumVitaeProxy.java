@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.proxy.impl;
 import org.ipc.synapsis.curriculumvitae.dao.ICurriculumVitaeDao;
 import org.ipc.synapsis.curriculumvitae.entity.CurriculumVitae;
 import org.ipc.synapsis.curriculumvitae.proxy.ICurriculumVitaeProxy;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class CurriculumVitaeProxy implements ICurriculumVitaeProxy{
     ICurriculumVitaeDao curriculumVitaeDao;
 
     @Override
-    public CurriculumVitae get(String id) {
+    public CurriculumVitae get(String id) throws ParseException {
         LOGGER.debug("Start call Proxy layer get a 'Curriculum Vitae',id:{}",id);
         CurriculumVitae curriculumVitae = curriculumVitaeDao.get(id);
         LOGGER.debug("End call Proxy layer get a 'Curriculum Vitae',id:{}",id);

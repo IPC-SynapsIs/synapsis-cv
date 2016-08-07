@@ -12,8 +12,11 @@ import org.ipc.synapsis.curriculumvitae.resource.ILanguageResource;
 import org.ipc.synapsis.curriculumvitae.resource.IProfessionalExperienceResource;
 import org.ipc.synapsis.curriculumvitae.service.ILanguageService;
 import org.ipc.synapsis.curriculumvitae.service.IProfessionalExperienceService;
+import org.ipc.synapsis.curriculumvitae.util.constant.ParseExceptionConstant;
 import org.ipc.synapsis.curriculumvitae.util.constant.ResourceExceptionConstant;
+import org.ipc.synapsis.curriculumvitae.util.exception.ParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.ResourceNotFoundException;
+import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpParseException;
 import org.ipc.synapsis.curriculumvitae.util.exception.http.HttpResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +76,7 @@ public class ProfessionalExperienceResource implements IProfessionalExperienceRe
             @ApiResponse(code = 200, message = "The 'Professional Experience' was found and is in the response", response = ProfessionalExperienceOut.class),
             @ApiResponse(code = 404, message = "The 'Professional Experience' cannot be found", response = ResourceNotFound.class)
     })
-    public ResponseEntity get(@ApiParam(value = "The given 'Professional Experience' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException {
+    public ResponseEntity get(@ApiParam(value = "The given 'Professional Experience' id", required = true) @PathVariable("id") String id) throws HttpResourceNotFoundException, HttpParseException {
         LOGGER.debug("Start call of the web service get 'Professional Experience' by id, id={}",id);
         ProfessionalExperienceOut professionalExperienceOut = null;
         try {
@@ -82,6 +85,10 @@ public class ProfessionalExperienceResource implements IProfessionalExperienceRe
             LOGGER.warn("Resource 'Professional Experience' OUT not found, id:{}",id);
             throw  new HttpResourceNotFoundException(e.getResourceID(), e.getResourceName(),
                     ResourceExceptionConstant.PROFESSIONNAL_EXPERIENCE_NOT_FOUND_CODE, ResourceExceptionConstant.PROFESSIONNAL_EXPERIENCE_NOT_FOUND_VALUE);
+        } catch (ParseException e) {
+            LOGGER.error("Resource layer Cannot parse Sting to UUID");
+            throw new HttpParseException(e.getSource(),e.getTarget(),
+                    ParseExceptionConstant.PARSE_ERROR_STRING_UUID_CODE,ParseExceptionConstant.PARSE_ERROR_STRING_UUID_VALUE);
         }
         LOGGER.debug("End call of  the web service get 'Professional Experience' by id, id={}",id);
         return ResponseEntity.ok(professionalExperienceOut);
