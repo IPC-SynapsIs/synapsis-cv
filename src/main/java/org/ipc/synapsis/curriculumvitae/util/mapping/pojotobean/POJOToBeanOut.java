@@ -12,6 +12,7 @@ public class POJOToBeanOut {
         CurriculumVitaeOut curriculumVitaeOut = new CurriculumVitaeOut();
         curriculumVitaeOut.setId(curriculumVitae.getId());
         curriculumVitaeOut.setTitle(curriculumVitae.getTitle());
+        curriculumVitaeOut.setCollaborator(curriculumVitae.getCollaborator());
         return curriculumVitaeOut;
     }
 

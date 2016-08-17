@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.bean.out;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -14,6 +15,10 @@ public class CurriculumVitaeOut {
 
     @ApiModelProperty(value = "'Curriculum Vitae' id property", dataType = "java.util.UUID")
     private UUID id;
+
+    @NotNull
+    @ApiModelProperty(value = "'Curriculum Vitae' collaborator reference property", dataType = "java.lang.String")
+    private String collaborator;
 
     @ApiModelProperty(value = "'Curriculum Vitae' title property", dataType = "java.lang.String")
     private String title;
@@ -42,10 +47,20 @@ public class CurriculumVitaeOut {
         this.title = title;
     }
 
+    public String getCollaborator() {
+        return collaborator;
+    }
+
+    public void setCollaborator(String collaborator) {
+        this.collaborator = collaborator;
+    }
+
+
     @Override
     public String toString() {
         return "CurriculumVitaeOut{" +
                 "id=" + id +
+                ", collaborator='" + collaborator + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

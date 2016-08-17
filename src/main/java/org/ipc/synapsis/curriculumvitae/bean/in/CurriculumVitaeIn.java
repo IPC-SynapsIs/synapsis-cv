@@ -19,6 +19,10 @@ public class CurriculumVitaeIn {
     @ApiModelProperty(value = "'Curriculum Vitae' IN title property", dataType = "java.lang.String")
     private String title;
 
+    @NotNull
+    @ApiModelProperty(value = "'Curriculum Vitae' IN collaborator reference property", dataType = "java.lang.String")
+    private String collaborator;
+
     public CurriculumVitaeIn() {
     }
 
@@ -34,10 +38,19 @@ public class CurriculumVitaeIn {
         this.title = title;
     }
 
+    public String getCollaborator() {
+        return collaborator;
+    }
+
+    public void setCollaborator(String collaborator) {
+        this.collaborator = collaborator;
+    }
+
     @Override
     public String toString() {
         return "CurriculumVitaeIn{" +
                 "title='" + title + '\'' +
+                ", collaborator='" + collaborator + '\'' +
                 '}';
     }
 }

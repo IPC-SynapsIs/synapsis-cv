@@ -11,6 +11,7 @@ public class BeanInToPOJO {
     public static CurriculumVitae getCurriculumVitae(CurriculumVitaeIn curriculumVitaeIn){
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitae.setTitle(curriculumVitaeIn.getTitle());
+        curriculumVitae.setCollaborator(curriculumVitaeIn.getCollaborator());
         return curriculumVitae;
     }
 

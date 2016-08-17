@@ -19,14 +19,18 @@ public class CurriculumVitae {
     private UUID id;
 
     @Column
+    private String collaborator;
+
+    @Column
     private String title;
 
     public CurriculumVitae() {
     }
 
-    public CurriculumVitae(UUID id, String title) {
+    public CurriculumVitae(UUID id, String title, String collaborator) {
         this.setId(id);
         this.setTitle(title);
+        this.setCollaborator(collaborator);
     }
 
     public UUID getId() {
@@ -45,10 +49,19 @@ public class CurriculumVitae {
         this.title = title;
     }
 
+    public String getCollaborator() {
+        return collaborator;
+    }
+
+    public void setCollaborator(String collaborator) {
+        this.collaborator = collaborator;
+    }
+
     @Override
     public String toString() {
         return "CurriculumVitae{" +
                 "id=" + id +
+                ", collaborater='" + collaborator + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }
