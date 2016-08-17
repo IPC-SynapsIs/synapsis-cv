@@ -44,7 +44,10 @@ public class POJOToBeanOut {
         ProfessionalExperienceOut professionalExperienceOut = new ProfessionalExperienceOut();
         professionalExperienceOut.setId(professionalExperience.getId());
         professionalExperienceOut.setTitle(professionalExperience.getTitle());
+        professionalExperienceOut.setIdProject(professionalExperience.getIdProject());
         professionalExperienceOut.setCurriculumVitae(professionalExperience.getCurriculumVitae());
+        professionalExperienceOut.setDateStart(professionalExperience.getDateStart());
+        professionalExperienceOut.setDateEnd(professionalExperience.getDateEnd());
         return professionalExperienceOut;
     }
 }

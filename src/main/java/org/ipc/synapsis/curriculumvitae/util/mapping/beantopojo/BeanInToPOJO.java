@@ -39,7 +39,10 @@ public class BeanInToPOJO {
     public static ProfessionalExperience getProfessionalExperience(ProfessionalExperienceIn professionalExperienceIn){
         ProfessionalExperience professionalExperience = new ProfessionalExperience();
         professionalExperience.setTitle(professionalExperienceIn.getTitle());
+        professionalExperience.setIdProject(professionalExperienceIn.getIdProject());
         professionalExperience.setCurriculumVitae(professionalExperienceIn.getCurriculumVitae());
+        professionalExperience.setDateStart(professionalExperienceIn.getDateStart());
+        professionalExperience.setDateEnd(professionalExperienceIn.getDateEnd());
         return professionalExperience;
     }
 }

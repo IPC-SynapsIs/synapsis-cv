@@ -3,6 +3,7 @@ package org.ipc.synapsis.curriculumvitae.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -17,7 +18,16 @@ public class ProfessionalExperience {
     private UUID id;
 
     @Column
+    private String idProject;
+
+    @Column
     private String title;
+
+    @Column
+    private Date dateStart;
+
+    @Column
+    private Date dateEnd;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
@@ -42,11 +52,35 @@ public class ProfessionalExperience {
         this.title = title;
     }
 
+    public String getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(String idProject) {
+        this.idProject = idProject;
+    }
+
     public CurriculumVitae getCurriculumVitae() {
         return curriculumVitae;
     }
 
     public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
         this.curriculumVitae = curriculumVitae;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 }
