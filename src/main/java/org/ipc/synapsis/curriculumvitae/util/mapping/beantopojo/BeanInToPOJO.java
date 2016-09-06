@@ -11,7 +11,7 @@ public class BeanInToPOJO {
     public static CurriculumVitae getCurriculumVitae(CurriculumVitaeIn curriculumVitaeIn){
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitae.setTitle(curriculumVitaeIn.getTitle());
-        curriculumVitae.setCollaborator(curriculumVitaeIn.getCollaborator());
+        curriculumVitae.setIdCollaborator(curriculumVitaeIn.getCollaborator());
         return curriculumVitae;
     }
 
@@ -31,7 +31,7 @@ public class BeanInToPOJO {
 
     public static Miscallenous getMiscallenous(MiscallenousIn miscallenousIn){
         Miscallenous miscallenous = new Miscallenous();
-        miscallenous.setText(miscallenousIn.getText());
+        miscallenous.setTitle(miscallenousIn.getText());
         miscallenous.setCurriculumVitae(miscallenousIn.getCurriculumVitae());
         return miscallenous;
     }

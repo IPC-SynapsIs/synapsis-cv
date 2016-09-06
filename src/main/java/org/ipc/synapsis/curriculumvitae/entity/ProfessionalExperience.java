@@ -1,7 +1,7 @@
 package org.ipc.synapsis.curriculumvitae.entity;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -22,6 +22,9 @@ public class ProfessionalExperience {
 
     @Column
     private String title;
+
+    @Column
+    private String description;
 
     @Column
     private Date dateStart;
@@ -82,5 +85,13 @@ public class ProfessionalExperience {
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

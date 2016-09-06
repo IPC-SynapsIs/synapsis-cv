@@ -1,8 +1,5 @@
 package org.ipc.synapsis.curriculumvitae.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,18 +16,21 @@ public class CurriculumVitae {
     private UUID id;
 
     @Column
-    private String collaborator;
+    private String idCollaborator;
 
     @Column
     private String title;
 
+    @Column
+    private String description;
+
     public CurriculumVitae() {
     }
 
-    public CurriculumVitae(UUID id, String title, String collaborator) {
+    public CurriculumVitae(UUID id, String title, String idCollaborator) {
         this.setId(id);
         this.setTitle(title);
-        this.setCollaborator(collaborator);
+        this.setIdCollaborator(idCollaborator);
     }
 
     public UUID getId() {
@@ -49,20 +49,21 @@ public class CurriculumVitae {
         this.title = title;
     }
 
-    public String getCollaborator() {
-        return collaborator;
+    public String getIdCollaborator() {
+        return idCollaborator;
     }
 
-    public void setCollaborator(String collaborator) {
-        this.collaborator = collaborator;
+    public void setIdCollaborator(String idCollaborator) {
+        this.idCollaborator = idCollaborator;
     }
 
-    @Override
-    public String toString() {
-        return "CurriculumVitae{" +
-                "id=" + id +
-                ", collaborater='" + collaborator + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+    public String getDescription() {
+        return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }

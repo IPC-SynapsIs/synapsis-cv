@@ -12,7 +12,7 @@ public class POJOToBeanOut {
         CurriculumVitaeOut curriculumVitaeOut = new CurriculumVitaeOut();
         curriculumVitaeOut.setId(curriculumVitae.getId());
         curriculumVitaeOut.setTitle(curriculumVitae.getTitle());
-        curriculumVitaeOut.setCollaborator(curriculumVitae.getCollaborator());
+        curriculumVitaeOut.setCollaborator(curriculumVitae.getIdCollaborator());
         return curriculumVitaeOut;
     }
 
@@ -35,7 +35,7 @@ public class POJOToBeanOut {
     public static MiscallenousOut getMiscallenousOut(Miscallenous miscallenous){
         MiscallenousOut miscallenousOut = new MiscallenousOut();
         miscallenousOut.setId(miscallenous.getId());
-        miscallenousOut.setText(miscallenous.getText());
+        miscallenousOut.setText(miscallenous.getTitle());
         miscallenousOut.setCurriculumVitae(miscallenous.getCurriculumVitae());
         return miscallenousOut;
     }

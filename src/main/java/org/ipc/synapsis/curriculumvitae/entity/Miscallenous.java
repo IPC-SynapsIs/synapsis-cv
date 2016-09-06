@@ -17,7 +17,10 @@ public class Miscallenous {
     private UUID id;
 
     @Column
-    private String text;
+    private String title;
+
+    @Column
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
@@ -34,12 +37,12 @@ public class Miscallenous {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getTitle() {
+        return title;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public CurriculumVitae getCurriculumVitae() {
@@ -48,5 +51,13 @@ public class Miscallenous {
 
     public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
         this.curriculumVitae = curriculumVitae;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

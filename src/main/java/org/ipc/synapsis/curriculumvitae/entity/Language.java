@@ -1,7 +1,5 @@
 package org.ipc.synapsis.curriculumvitae.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -17,6 +15,9 @@ public class Language {
 
     @Column
     private String Language;
+
+    @Column
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "ID_CURRICULUM_VITAE",nullable = false)
@@ -47,5 +48,13 @@ public class Language {
 
     public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
         this.curriculumVitae = curriculumVitae;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
