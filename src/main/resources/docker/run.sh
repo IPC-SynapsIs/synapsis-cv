@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-java -jar -Dspring.profiles.active=dev synapsis-cv.jar
+java -jar -Dspring.profiles.active=prod synapsis-cv.jar
