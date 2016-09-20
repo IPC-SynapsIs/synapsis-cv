@@ -10,8 +10,8 @@ ADD docker/run.sh /etc/synapsis/synapsis-cv/run.sh
 RUN chmod +x /etc/synapsis/synapsis-cv/synapsis-cv.jar
 RUN chmod +x /etc/synapsis/synapsis-cv/run.sh
 
-ENV USER_DB_SYNAPSIS=${USER_DB_SYNAPSIS}
-ENV PASSWORD_DB_SYNAPSIS=${PASSWORD_DB_SYNAPSIS}
+ENV USER_DB_SYNAPSIS ${USER_DB_SYNAPSIS}
+ENV PASSWORD_DB_SYNAPSIS ${PASSWORD_DB_SYNAPSIS}
 
 RUN export $USER_DB_SYNAPSIS
 RUN export $PASSWORD_DB_SYNAPSIS
