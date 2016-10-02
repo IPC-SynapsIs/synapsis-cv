@@ -5,7 +5,7 @@ MAINTAINER mbasri<basrimohamed@live.fr>
 #RUN apt-get update
 
 ADD build/libs/*.jar /etc/synapsis/synapsis-cv/synapsis-cv.jar
-ADD docker/run.sh /etc/synapsis/synapsis-cv/run.sh
+ADD src/main/resources/docker/run.sh /etc/synapsis/synapsis-cv/run.sh
 
 RUN chmod +x /etc/synapsis/synapsis-cv/synapsis-cv.jar
 RUN chmod +x /etc/synapsis/synapsis-cv/run.sh
